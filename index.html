@@ -1,1595 +1,1205 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Benny Pizza – Pizzería artesanal. Lugar íntimo y familiar con la mejor calidad y atención. Reservá tu mesa.">
-  <title>Benny Pizza 🍕</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Raleway:wght@300;400;600;700;800&family=Pinyon+Script&display=swap" rel="stylesheet">
-
-  <style>
-    /* ═══════════════════════════════════
-       CSS VARIABLES & RESET
-    ═══════════════════════════════════ */
-    :root {
-      --bg:       #080503;
-      --bg2:      #110B06;
-      --bg3:      #1A1009;
-      --card:     #221508;
-      --card2:    #2C1C0E;
-      --border:   #3A2510;
-      --border2:  #4E3318;
-      --red:      #C01818;
-      --red2:     #D92020;
-      --red3:     #F04040;
-      --gold:     #B88820;
-      --gold2:    #D4A030;
-      --gold3:    #ECC050;
-      --gold4:    #F8DC88;
-      --cream:    #F2E6CC;
-      --text:     #EAD9BC;
-      --text2:    #C4AD88;
-      --text3:    #86704E;
-      --green:    #22C55E;
-
-      --f-head:   'Cormorant Garamond', Georgia, serif;
-      --f-body:   'Raleway', system-ui, sans-serif;
-      --f-logo:   'Pinyon Script', cursive;
-      --ease:     cubic-bezier(.25,.46,.45,.94);
-      --bounce:   cubic-bezier(.34,1.56,.64,1);
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html {
-      scroll-behavior: smooth;
-      scrollbar-width: thin;
-      scrollbar-color: var(--red) var(--bg3);
-    }
-    ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: var(--bg3); }
-    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--f-body);
-      font-weight: 400;
-      line-height: 1.65;
-      overflow-x: hidden;
-    }
-
-    h1, h2, h3, h4 { font-family: var(--f-head); }
-    a { color: inherit; }
-    input, select, textarea, button { font-family: var(--f-body); }
-    img { display: block; max-width: 100%; }
-
-    /* ═══════════════════════════════════
-       UTILITIES
-    ═══════════════════════════════════ */
-    .container { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
-    .section    { padding: 100px 0; }
-    .section-sm { padding: 72px 0; }
-
-    .tag {
-      display: inline-block;
-      font-family: var(--f-body);
-      font-size: 10.5px;
-      font-weight: 800;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: var(--gold3);
-      padding: 5px 14px;
-      border: 1px solid var(--gold);
-      margin-bottom: 18px;
-    }
-
-    .s-title {
-      font-size: clamp(2.2rem, 5vw, 3.4rem);
-      font-weight: 700;
-      line-height: 1.05;
-      color: var(--cream);
-      margin-bottom: 16px;
-    }
-    .s-title em { font-style: italic; color: var(--gold3); }
-
-    .s-sub {
-      font-size: 1rem;
-      color: var(--text2);
-      line-height: 1.75;
-      max-width: 540px;
-    }
-
-    /* BUTTONS */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 13px 26px;
-      font-family: var(--f-body);
-      font-weight: 700;
-      font-size: .82rem;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      text-decoration: none;
-      cursor: pointer;
-      border: none;
-      transition: all .2s var(--ease);
-    }
-    .btn-red {
-      background: var(--red);
-      color: #fff;
-    }
-    .btn-red:hover { background: var(--red2); transform: translateY(-2px); box-shadow: 0 8px 22px rgba(192,24,24,.35); }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--gold3);
-      border: 1px solid var(--gold);
-    }
-    .btn-outline:hover { background: rgba(212,160,48,.08); border-color: var(--gold3); transform: translateY(-2px); }
-
-    .btn-wa {
-      background: #25D366;
-      color: #fff;
-    }
-    .btn-wa:hover { background: #1db954; transform: translateY(-2px); box-shadow: 0 8px 22px rgba(37,211,102,.32); }
-
-    /* REVEAL ANIMATIONS */
-    .r   { opacity:0; transform:translateY(36px);  transition:opacity .7s var(--ease), transform .7s var(--ease); }
-    .rl  { opacity:0; transform:translateX(-36px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
-    .rr  { opacity:0; transform:translateX(36px);  transition:opacity .7s var(--ease), transform .7s var(--ease); }
-    .rs  { opacity:0; transform:scale(.9);          transition:opacity .6s var(--ease), transform .6s var(--bounce); }
-    .r.on, .rl.on, .rr.on, .rs.on { opacity:1; transform:none; }
-    .d1 { transition-delay:.08s!important; }
-    .d2 { transition-delay:.16s!important; }
-    .d3 { transition-delay:.24s!important; }
-    .d4 { transition-delay:.32s!important; }
-    .d5 { transition-delay:.40s!important; }
-    .d6 { transition-delay:.48s!important; }
-
-    /* ═══════════════════════════════════
-       FLOATING WHATSAPP
-    ═══════════════════════════════════ */
-    .float-wa {
-      position: fixed;
-      bottom: 26px;
-      right: 26px;
-      width: 58px; height: 58px;
-      background: #25D366;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-      text-decoration: none;
-      box-shadow: 0 4px 20px rgba(37,211,102,.4);
-      transition: transform .2s, box-shadow .2s;
-    }
-    .float-wa::before {
-      content: '';
-      position: absolute;
-      inset: -5px;
-      border-radius: 50%;
-      border: 2px solid rgba(37,211,102,.35);
-      animation: wap 2s ease-out infinite;
-    }
-    .float-wa svg { width: 28px; height: 28px; fill: white; }
-    .float-wa:hover { transform: scale(1.1); box-shadow: 0 8px 28px rgba(37,211,102,.5); }
-    @keyframes wap { 0%{opacity:1;transform:scale(1)} 100%{opacity:0;transform:scale(1.55)} }
-
-    /* ═══════════════════════════════════
-       NAVBAR
-    ═══════════════════════════════════ */
-    .nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      transition: background .3s, backdrop-filter .3s, border-color .3s;
-    }
-    .nav.scrolled {
-      background: rgba(8,5,3,.88);
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-i {
-      max-width: 1160px;
-      margin: 0 auto;
-      padding: 22px 28px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: padding .3s;
-    }
-    .nav.scrolled .nav-i { padding: 14px 28px; }
-
-    .logo {
-      font-family: var(--f-logo);
-      font-size: 2rem;
-      color: var(--cream);
-      text-decoration: none;
-      line-height: 1;
-    }
-    .logo em { color: var(--red2); font-style: normal; }
-
-    .nav-links {
-      display: flex;
-      gap: 30px;
-      list-style: none;
-    }
-    .nav-links a {
-      color: var(--text2);
-      text-decoration: none;
-      font-size: .78rem;
-      font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      transition: color .2s;
-    }
-    .nav-links a:hover { color: var(--gold3); }
-
-    .nav-right { display:flex; align-items:center; gap:14px; }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 4px;
-    }
-    .hamburger span {
-      width: 24px; height: 2px;
-      background: var(--text);
-      border-radius: 1px;
-      transition: all .3s;
-    }
-
-    @media (max-width: 860px) {
-      .nav-links, .nav-right .btn { display: none; }
-      .hamburger { display: flex; }
-    }
-
-    .mob-menu {
-      position: fixed;
-      inset: 0;
-      background: rgba(8,5,3,.97);
-      z-index: 98;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 28px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .3s;
-    }
-    .mob-menu.open { opacity: 1; pointer-events: all; }
-    .mob-menu a {
-      font-family: var(--f-head);
-      font-size: 2.4rem;
-      font-weight: 600;
-      color: var(--text);
-      text-decoration: none;
-      transition: color .2s;
-    }
-    .mob-menu a:hover { color: var(--gold3); }
-
-    /* ═══════════════════════════════════
-       HERO
-    ═══════════════════════════════════ */
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    /* Layered background */
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 70% 55% at 50% 100%, rgba(170,30,10,.28) 0%, transparent 65%),
-        radial-gradient(ellipse 50% 35% at 50% 78%, rgba(100,50,0,.22) 0%, transparent 55%),
-        linear-gradient(180deg, #09060200 0%, #0D0805 40%, #080503 100%);
-      will-change: transform;
-    }
-    /* Grain texture overlay */
-    .hero-bg::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-      opacity: .25;
-      pointer-events: none;
-    }
-
-    /* Embers */
-    .embers { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
-    .ember {
-      position: absolute;
-      bottom: -20px;
-      border-radius: 50%;
-      opacity: 0;
-      animation: rise linear infinite;
-    }
-    @keyframes rise {
-      0%   { opacity:0;  transform:translateY(0)    translateX(0)           scale(1); }
-      12%  { opacity:.9; }
-      60%  { opacity:.4; transform:translateY(-55vh) translateX(var(--dx))  scale(.7); }
-      100% { opacity:0;  transform:translateY(-100vh) translateX(calc(var(--dx)*1.8)) scale(.3); }
-    }
-
-    /* Curved bottom divider */
-    .hero-curve {
-      position: absolute;
-      bottom: -1px; left: 0; right: 0;
-      height: 72px;
-      background: var(--bg);
-      clip-path: ellipse(54% 100% at 50% 100%);
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      padding: 128px 28px 72px;
-      max-width: 820px;
-    }
-
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      font-size: .7rem;
-      font-weight: 800;
-      letter-spacing: .25em;
-      text-transform: uppercase;
-      color: var(--gold3);
-      margin-bottom: 22px;
-    }
-    .hero-eyebrow::before,
-    .hero-eyebrow::after { content:''; display:block; width:36px; height:1px; background:var(--gold); }
-
-    .hero-h1 {
-      font-size: clamp(3.2rem, 10vw, 7.5rem);
-      font-weight: 700;
-      line-height: .95;
-      letter-spacing: -.02em;
-      color: var(--cream);
-    }
-    .hero-h1 .brand {
-      font-family: var(--f-logo);
-      font-size: 1.25em;
-      color: var(--red2);
-      display: block;
-      line-height: .95;
-    }
-    .hero-h1 .ital { font-style: italic; color: var(--gold4); }
-
-    .hero-p {
-      font-size: 1.05rem;
-      color: var(--text2);
-      margin: 28px auto 40px;
-      max-width: 460px;
-      line-height: 1.75;
-    }
-
-    .hero-btns {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .scroll-hint {
-      position: absolute;
-      bottom: 90px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      color: var(--text3);
-      font-size: .65rem;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      animation: bob 2.2s ease-in-out infinite;
-    }
-    .scroll-hint svg { width:18px; height:18px; stroke:var(--text3); fill:none; }
-    @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(7px)} }
-
-    /* ═══════════════════════════════════
-       NOSOTROS
-    ═══════════════════════════════════ */
-    .nosotros { background: var(--bg2); }
-    .nos-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-    @media(max-width:768px){ .nos-grid { grid-template-columns:1fr; gap:52px; } }
-
-    .nos-text p {
-      color: var(--text2);
-      line-height: 1.8;
-      font-size: 1rem;
-      margin-bottom: 18px;
-    }
-    .nos-text p:first-of-type::first-letter {
-      font-family: var(--f-head);
-      font-size: 3.6em;
-      float: left;
-      line-height: .75;
-      margin: 6px 10px 0 0;
-      color: var(--red2);
-    }
-
-    .nos-stats {
-      display: flex;
-      gap: 36px;
-      margin-top: 40px;
-      padding-top: 32px;
-      border-top: 1px solid var(--border);
-      flex-wrap: wrap;
-    }
-    .stat-n {
-      font-family: var(--f-head);
-      font-size: 2.8rem;
-      font-weight: 700;
-      color: var(--gold3);
-      line-height: 1;
-    }
-    .stat-n sup { font-size: .5em; }
-    .stat-l {
-      font-size: .72rem;
-      font-weight: 700;
-      color: var(--text3);
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      margin-top: 4px;
-    }
-
-    .nos-visual { position: relative; }
-    .nos-img {
-      aspect-ratio: 3/4;
-      background: var(--card);
-      border: 1px solid var(--border);
-      overflow: hidden;
-      position: relative;
-    }
-    .nos-img img { width:100%; height:100%; object-fit:cover; transition:transform .5s var(--ease); }
-    .nos-img:hover img { transform: scale(1.04); }
-
-    .nos-placeholder {
-      width: 100%; height: 100%;
-      background: linear-gradient(135deg, var(--card2) 0%, var(--bg3) 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      color: var(--text3);
-      text-align: center;
-      padding: 28px;
-    }
-    .nos-placeholder .big { font-size: 4rem; }
-    .nos-placeholder p { font-size: .82rem; line-height: 1.6; }
-
-    /* Badge decorativo */
-    .nos-badge {
-      position: absolute;
-      bottom: -18px; right: -18px;
-      width: 86px; height: 86px;
-      background: var(--red);
-      border-radius: 50%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 6px 24px rgba(192,24,24,.4);
-      z-index: 2;
-    }
-    .nos-badge .big  { font-size: 1.4rem; font-family:var(--f-head); font-weight:700; color:#fff; line-height:1; }
-    .nos-badge .small{ font-size: .5rem; color:rgba(255,255,255,.75); text-transform:uppercase; letter-spacing:.1em; }
-
-    /* ═══════════════════════════════════
-       MENÚ
-    ═══════════════════════════════════ */
-    .menu-section { background: var(--bg); }
-
-    .menu-tabs {
-      display: flex;
-      gap: 0;
-      margin: 52px 0 40px;
-      border-bottom: 1px solid var(--border);
-    }
-    .m-tab {
-      padding: 12px 22px;
-      font-family: var(--f-body);
-      font-size: .78rem;
-      font-weight: 800;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--text3);
-      cursor: pointer;
-      background: none;
-      border: none;
-      border-bottom: 3px solid transparent;
-      margin-bottom: -1px;
-      transition: all .2s;
-    }
-    .m-tab.on  { color: var(--gold3); border-bottom-color: var(--gold3); }
-    .m-tab:hover:not(.on) { color: var(--text2); }
-
-    .m-panel { display: none; }
-    .m-panel.on { display: block; }
-
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-      gap: 22px;
-    }
-    @media(max-width:720px){ .menu-grid { grid-template-columns:1fr; } }
-
-    .m-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      overflow: hidden;
-      transition: transform .3s var(--bounce), box-shadow .3s, border-color .3s;
-      cursor: default;
-    }
-    .m-card:hover {
-      transform: translateY(-7px);
-      border-color: var(--gold);
-      box-shadow: 0 18px 44px rgba(0,0,0,.55), 0 0 0 1px var(--gold) inset;
-    }
-
-    /* Card image */
-    .m-card-img {
-      height: 190px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 4.5rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .m-card-img img {
-      position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform .4s var(--ease);
-    }
-    .m-card:hover .m-card-img img { transform: scale(1.07); }
-    .m-card-img::after {
-      content:'';
-      position:absolute; bottom:0; left:0; right:0;
-      height:55%;
-      background: linear-gradient(to top, var(--card), transparent);
-      pointer-events:none;
-    }
-
-    /* Gradient BG variants (fallback / no photo) */
-    .g1 { background: linear-gradient(135deg, #2A1008 0%, #190A04 100%); }
-    .g2 { background: linear-gradient(135deg, #12101E 0%, #0A080E 100%); }
-    .g3 { background: linear-gradient(135deg, #1A1800 0%, #100E00 100%); }
-    .g4 { background: linear-gradient(135deg, #200808 0%, #120404 100%); }
-    .g5 { background: linear-gradient(135deg, #0A1418 0%, #060C0E 100%); }
-    .g6 { background: linear-gradient(135deg, #1A1000 0%, #100800 100%); }
-    .g7 { background: linear-gradient(135deg, #0E1A10 0%, #080E0A 100%); }
-    .g8 { background: linear-gradient(135deg, #16140A 0%, #0C0A06 100%); }
-
-    .m-card-body { padding: 20px; }
-    .m-card-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-    .m-name {
-      font-family: var(--f-head);
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--cream);
-      line-height: 1.15;
-    }
-    .m-price {
-      font-family: var(--f-head);
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--gold3);
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    .m-desc {
-      font-size: .88rem;
-      color: var(--text2);
-      line-height: 1.65;
-      margin-bottom: 10px;
-    }
-    .m-ingr {
-      font-size: .76rem;
-      color: var(--text3);
-      font-style: italic;
-      line-height: 1.5;
-    }
-    .m-pills {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-top: 12px;
-    }
-    .pill {
-      font-size: .68rem;
-      font-weight: 800;
-      letter-spacing: .05em;
-      padding: 3px 10px;
-      border-radius: 20px;
-    }
-    .pc { background:rgba(184,136,32,.13); color:var(--gold3); border:1px solid rgba(184,136,32,.28); }
-    .ps { background:rgba(192,24,24,.13); color:#FF7070; border:1px solid rgba(192,24,24,.28); }
-    .pf { background:rgba(212,160,48,.2); color:var(--gold4); border:1px solid var(--gold); }
-    .pv { background:rgba(34,197,94,.1); color:#6EDCA0; border:1px solid rgba(34,197,94,.22); }
-
-    /* Foto placeholder note */
-    .photo-note {
-      position: absolute;
-      top: 10px; right: 10px;
-      font-size: .6rem;
-      font-weight: 700;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.4);
-      background: rgba(0,0,0,.4);
-      padding: 3px 8px;
-      border-radius: 2px;
-      z-index: 2;
-    }
-
-    /* ═══════════════════════════════════
-       TIPS
-    ═══════════════════════════════════ */
-    .tips { background: var(--bg2); }
-    .tips-header { text-align: center; margin-bottom: 60px; }
-    .tips-header .s-sub { margin: 0 auto; text-align: center; }
-
-    .tips-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 22px;
-    }
-
-    .tip-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      padding: 30px 26px;
-      position: relative;
-      overflow: hidden;
-      transition: transform .3s var(--ease), border-color .3s;
-    }
-    .tip-card:hover { transform: translateY(-5px); border-color: var(--gold); }
-    .tip-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--red), var(--gold2));
-    }
-
-    .tip-num {
-      position: absolute;
-      top: 14px; right: 18px;
-      font-family: var(--f-head);
-      font-size: 5rem;
-      font-weight: 700;
-      color: rgba(192,24,24,.08);
-      line-height: 1;
-    }
-    .tip-icon { font-size: 2.2rem; margin-bottom: 14px; display:block; }
-    .tip-title {
-      font-family: var(--f-head);
-      font-size: 1.18rem;
-      font-weight: 700;
-      color: var(--cream);
-      margin-bottom: 8px;
-    }
-    .tip-body { font-size: .88rem; color: var(--text2); line-height: 1.7; }
-
-    /* ═══════════════════════════════════
-       RESERVAS
-    ═══════════════════════════════════ */
-    .reservas { background: var(--bg3); }
-    .res-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: start;
-    }
-    @media(max-width:768px){ .res-grid { grid-template-columns:1fr; gap:52px; } }
-
-    .res-sub { font-size:.85rem; color:var(--text3); line-height:1.65; margin-bottom:28px; }
-    .res-title { font-family:var(--f-head); font-size:1.4rem; color:var(--cream); margin-bottom:6px; }
-
-    .fg { margin-bottom: 18px; }
-    .fl {
-      display: block;
-      font-size: .72rem;
-      font-weight: 800;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--text3);
-      margin-bottom: 7px;
-    }
-    .fi {
-      width: 100%;
-      background: var(--card);
-      border: 1px solid var(--border2);
-      padding: 11px 15px;
-      color: var(--text);
-      font-size: .93rem;
-      transition: border-color .2s, box-shadow .2s;
-      outline: none;
-    }
-    .fi:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184,136,32,.1); }
-    .fi::placeholder { color: var(--text3); }
-    .fi option { background: var(--card); }
-    .fr { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-    @media(max-width:480px){ .fr { grid-template-columns:1fr; } }
-
-    /* Calendar embed panel */
-    .cal-panel {
-      background: var(--card);
-      border: 1px solid var(--border);
-      min-height: 480px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 44px 32px;
-      text-align: center;
-      gap: 16px;
-    }
-    .cal-panel .big { font-size: 3rem; }
-    .cal-panel h4 { font-family:var(--f-head); font-size:1.25rem; color:var(--text2); }
-    .cal-panel p  { font-size:.84rem; color:var(--text3); line-height:1.65; max-width:300px; }
-    .cal-panel code {
-      background:var(--bg); border:1px solid var(--border);
-      padding:2px 8px; font-size:.75rem; color:var(--gold3); font-family:monospace;
-    }
-
-    /* ═══════════════════════════════════
-       CONTACTO
-    ═══════════════════════════════════ */
-    .contacto { background: var(--bg); }
-    .ct-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-      margin-bottom: 56px;
-    }
-    @media(max-width:768px){ .ct-grid { grid-template-columns:1fr; } }
-
-    .ct-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      padding: 36px 26px;
-      text-align: center;
-      transition: transform .3s var(--ease), border-color .3s;
-    }
-    .ct-card:hover { transform: translateY(-5px); border-color: var(--red); }
-    .ct-icon {
-      width: 58px; height: 58px;
-      background: rgba(192,24,24,.1);
-      border: 1px solid rgba(192,24,24,.2);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4rem;
-      margin: 0 auto 18px;
-    }
-    .ct-card h3 { font-family:var(--f-head); font-size:1.15rem; color:var(--cream); margin-bottom:10px; }
-    .ct-card p, .ct-card a { font-size:.9rem; color:var(--text2); text-decoration:none; line-height:1.7; }
-    .ct-card a:hover { color:var(--gold3); }
-
-    /* IG CTA Banner */
-    .ig-banner {
-      background: var(--card);
-      border: 1px solid var(--border);
-      padding: 52px 28px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .ig-banner::before {
-      content:'';
-      position:absolute; inset:0;
-      background: linear-gradient(135deg, rgba(192,24,24,.06), rgba(184,136,32,.06));
-      pointer-events:none;
-    }
-    .ig-banner h3 { font-family:var(--f-head); font-size:2rem; color:var(--cream); margin-bottom:8px; position:relative; }
-    .ig-banner p  { font-size:.95rem; color:var(--text2); margin-bottom:28px; max-width:380px; margin-left:auto; margin-right:auto; line-height:1.7; position:relative; }
-
-    /* ═══════════════════════════════════
-       FOOTER
-    ═══════════════════════════════════ */
-    footer {
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-      padding: 48px 0 24px;
-    }
-    .ft-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-      margin-bottom: 32px;
-    }
-    .ft-logo { font-family:var(--f-logo); font-size:2rem; color:var(--cream); text-decoration:none; }
-    .ft-logo em { color:var(--red2); font-style:normal; }
-
-    .ft-links { display:flex; gap:22px; list-style:none; flex-wrap:wrap; }
-    .ft-links a { color:var(--text3); text-decoration:none; font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; transition:color .2s; }
-    .ft-links a:hover { color:var(--gold3); }
-
-    .ft-social { display:flex; gap:10px; }
-    .ft-social a {
-      width:36px; height:36px;
-      background:var(--card); border:1px solid var(--border);
-      border-radius:50%;
-      display:flex; align-items:center; justify-content:center;
-      font-size:.9rem; text-decoration:none;
-      transition:all .2s;
-    }
-    .ft-social a:hover { border-color:var(--red); background:rgba(192,24,24,.1); transform:translateY(-2px); }
-
-    .ft-divider { border:none; border-top:1px solid var(--border); margin-bottom:20px; }
-    .ft-bottom { display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
-    .ft-bottom p { font-size:.76rem; color:var(--text3); }
-    .ft-ig { font-size:.76rem; color:var(--text3); text-decoration:none; display:flex; align-items:center; gap:5px; }
-    .ft-ig:hover { color:var(--gold3); }
-
-    /* ═══════════════════════════════════
-       RESPONSIVE
-    ═══════════════════════════════════ */
-    @media(max-width:768px){
-      .section { padding:68px 0; }
-      .hero-content { padding:110px 22px 64px; }
-      .menu-grid { grid-template-columns:1fr; }
-      .tips-grid { grid-template-columns:1fr; }
-      .nos-badge { display:none; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Benny Fatto In Casa — Pizza Napolitana · Cañuelas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --dark: #111111;
+    --dark2: #1a1a1a;
+    --gold: #c9a84c;
+    --gold2: #e8c96a;
+    --red: #c0392b;
+    --green: #1a6b3a;
+    --white: #f5f0e8;
+    --gray: #888;
+    --cream: #fdf8f0;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.4s, backdrop-filter 0.4s, padding 0.3s;
+  }
+  nav.scrolled {
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(16px);
+    padding: 12px 40px;
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+  }
+  .nav-logo {
+    font-family: 'Dancing Script', cursive;
+    font-size: 28px;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: 1px;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: rgba(245,240,232,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold);
+    color: var(--black) !important;
+    padding: 9px 20px;
+    border-radius: 2px;
+    font-weight: 600 !important;
+    transition: background 0.3s !important;
+  }
+  .nav-cta:hover { background: var(--gold2) !important; color: var(--black) !important; }
+
+  /* Burger */
+  .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; }
+  .burger span { display: block; width: 24px; height: 2px; background: var(--white); transition: 0.3s; }
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,10,10,0.98);
+    z-index: 999;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 22px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    transition: color 0.2s;
+  }
+  .mobile-menu a:hover { color: var(--gold); }
+
+  /* ─── HERO ─── */
+  .hero {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* Video hero — placeholder with cinematic gradient until real video added */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 60% 40%, rgba(192,57,43,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse at 20% 80%, rgba(201,168,76,0.15) 0%, transparent 50%),
+      linear-gradient(160deg, #1a0a00 0%, #0a0a0a 50%, #0d0500 100%);
+  }
+
+  /* Big fiery circle — decorative */
+  .hero-fire-circle {
+    position: absolute;
+    right: -100px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(192,57,43,0.35) 0%, rgba(201,168,76,0.15) 40%, transparent 70%);
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: translateY(-50%) scale(1); opacity: 0.7; }
+    50% { transform: translateY(-50%) scale(1.08); opacity: 1; }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 20px;
+    max-width: 800px;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(64px, 12vw, 130px);
+    color: var(--white);
+    line-height: 0.9;
+    margin-bottom: 8px;
+    opacity: 0;
+    animation: fadeUp 1s 0.5s forwards;
+  }
+
+  .hero-subtitle-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 1s 0.65s forwards;
+  }
+
+  .hero-desc {
+    font-size: 16px;
+    color: rgba(245,240,232,0.65);
+    max-width: 480px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 1s 0.8s forwards;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 1s 1s forwards;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--black);
+    padding: 14px 32px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: background 0.3s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--gold2); transform: translateY(-2px); }
+
+  .btn-secondary {
+    border: 1px solid rgba(245,240,232,0.3);
+    color: var(--white);
+    padding: 14px 32px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: border-color 0.3s, color 0.3s, transform 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 1s 1.4s forwards;
+  }
+  .hero-scroll-hint span {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.4);
+  }
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, rgba(201,168,76,0.6), transparent);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── VIDEO HERO NOTE ─── */
+  .video-hero-note {
+    position: absolute;
+    bottom: 80px;
+    right: 30px;
+    font-size: 10px;
+    color: rgba(201,168,76,0.4);
+    letter-spacing: 1px;
+    writing-mode: vertical-rl;
+  }
+
+  /* ─── SECTIONS COMMON ─── */
+  section { padding: 100px 40px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  .section-eyebrow {
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .section-divider {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin-bottom: 40px;
+  }
+
+  /* ─── ABOUT ─── */
+  .about { background: var(--dark); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .about-text p {
+    color: rgba(245,240,232,0.65);
+    line-height: 1.9;
+    margin-bottom: 20px;
+    font-size: 15px;
+  }
+  .about-text .quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--gold);
+    line-height: 1.5;
+    border-left: 3px solid var(--gold);
+    padding-left: 24px;
+    margin: 32px 0;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 40px;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.5);
+    margin-top: 6px;
+    display: block;
+  }
+
+  /* About visual */
+  .about-visual {
+    position: relative;
+  }
+  .about-img-main {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    border-radius: 2px;
+    filter: brightness(0.9) saturate(1.1);
+  }
+  .about-img-accent {
+    position: absolute;
+    bottom: -30px;
+    left: -30px;
+    width: 55%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 2px;
+    border: 4px solid var(--dark);
+    filter: brightness(0.85);
+  }
+  .about-badge {
+    position: absolute;
+    top: 30px;
+    right: -20px;
+    background: var(--gold);
+    color: var(--black);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    line-height: 1.3;
+  }
+  .about-badge strong { font-size: 22px; display: block; font-family: 'Playfair Display', serif; }
+
+  /* ─── MENU ─── */
+  .menu-section { background: var(--black); }
+  .menu-header { text-align: center; margin-bottom: 60px; }
+  .menu-header .section-divider { margin: 0 auto 0; }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2px;
+  }
+
+  .menu-item {
+    background: var(--dark2);
+    padding: 28px 32px;
+    border: 1px solid rgba(201,168,76,0.08);
+    transition: background 0.3s, border-color 0.3s, transform 0.3s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+  .menu-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--gold);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s;
+  }
+  .menu-item:hover { background: #1e1e1e; border-color: rgba(201,168,76,0.25); transform: translateY(-2px); }
+  .menu-item:hover::before { transform: scaleY(1); }
+
+  .menu-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    gap: 12px;
+  }
+  .menu-item-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    font-style: italic;
+  }
+  .menu-item-price {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gold);
+    white-space: nowrap;
+    font-family: 'Playfair Display', serif;
+  }
+  .menu-item-desc {
+    font-size: 13px;
+    color: rgba(245,240,232,0.5);
+    line-height: 1.6;
+  }
+  .menu-item-tag {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.6);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+
+  .menu-note {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 13px;
+    color: rgba(245,240,232,0.4);
+    font-style: italic;
+  }
+  .menu-note span { color: var(--gold); }
+
+  /* ─── GALLERY ─── */
+  .gallery-section {
+    background: var(--dark);
+    padding: 100px 0;
+    overflow: hidden;
+  }
+  .gallery-section .container { padding: 0 40px; }
+  .gallery-header { margin-bottom: 50px; }
+
+  .gallery-strip {
+    display: flex;
+    gap: 3px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 40px;
+  }
+  .gallery-strip::-webkit-scrollbar { display: none; }
+
+  .gallery-item {
+    flex: 0 0 300px;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 2px;
+    position: relative;
+  }
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease, filter 0.4s;
+    filter: brightness(0.85) saturate(1.1);
+  }
+  .gallery-item:hover img { transform: scale(1.08); filter: brightness(1) saturate(1.3); }
+  .gallery-item-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+  }
+  .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+  .gallery-item-label {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--white);
+  }
+
+  /* ─── PROCESO ─── */
+  .proceso { background: var(--black); }
+  .proceso-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+  }
+  .proceso-step {
+    padding: 40px 28px;
+    background: var(--dark2);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(201,168,76,0.06);
+  }
+  .proceso-step::after {
+    content: attr(data-num);
+    position: absolute;
+    bottom: -10px;
+    right: 10px;
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    font-weight: 900;
+    color: rgba(201,168,76,0.05);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .proceso-icon {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  .proceso-step h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: var(--gold);
+  }
+  .proceso-step p {
+    font-size: 13px;
+    color: rgba(245,240,232,0.5);
+    line-height: 1.7;
+  }
+
+  /* ─── CONTACTO ─── */
+  .contact-section { background: var(--dark); }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .contact-info p {
+    font-size: 14px;
+    color: rgba(245,240,232,0.6);
+    line-height: 1.8;
+    margin-bottom: 32px;
+  }
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .contact-item-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .contact-item-text span {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .contact-item-text p { font-size: 14px; color: var(--white); margin: 0; }
+
+  .contact-map {
+    width: 100%;
+    height: 400px;
+    border-radius: 2px;
+    overflow: hidden;
+    border: 1px solid rgba(201,168,76,0.15);
+    position: relative;
+  }
+  .contact-map iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    filter: grayscale(30%) saturate(1.1);
+  }
+
+  .social-links {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .social-link {
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(245,240,232,0.15);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(245,240,232,0.6);
+    text-decoration: none;
+    font-size: 16px;
+    transition: border-color 0.3s, color 0.3s, background 0.3s;
+  }
+  .social-link:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.08); }
+
+  .map-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    background: var(--gold);
+    color: var(--black);
+    padding: 12px 24px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: background 0.3s;
+  }
+  .map-btn:hover { background: var(--gold2); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #050505;
+    padding: 50px 40px;
+    border-top: 1px solid rgba(201,168,76,0.1);
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .footer-logo {
+    font-family: 'Dancing Script', cursive;
+    font-size: 28px;
+    color: var(--white);
+  }
+  .footer-logo span { color: var(--gold); }
+  .footer-tagline {
+    font-size: 11px;
+    color: rgba(245,240,232,0.3);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .footer-copy {
+    font-size: 12px;
+    color: rgba(245,240,232,0.25);
+    text-align: right;
+  }
+  .footer-copy a { color: var(--gold); text-decoration: none; }
+
+  /* ─── ITALIAN FLAG ACCENT ─── */
+  .flag-accent {
+    display: inline-flex;
+    gap: 4px;
+    margin-bottom: 16px;
+  }
+  .flag-segment {
+    width: 6px;
+    height: 24px;
+    border-radius: 1px;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+  .stagger-1 { transition-delay: 0.1s; }
+  .stagger-2 { transition-delay: 0.2s; }
+  .stagger-3 { transition-delay: 0.3s; }
+  .stagger-4 { transition-delay: 0.4s; }
+  .stagger-5 { transition-delay: 0.5s; }
+  .stagger-6 { transition-delay: 0.6s; }
+  .stagger-7 { transition-delay: 0.7s; }
+  .stagger-8 { transition-delay: 0.8s; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    nav.scrolled { padding: 10px 24px; }
+    .nav-links { display: none; }
+    .burger { display: flex; }
+    section { padding: 70px 24px; }
+    .about-grid { grid-template-columns: 1fr; gap: 50px; }
+    .about-img-accent { display: none; }
+    .about-badge { display: none; }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .proceso-grid { grid-template-columns: 1fr 1fr; }
+    .footer-inner { flex-direction: column; text-align: center; }
+    .footer-copy { text-align: center; }
+    .gallery-item { flex: 0 0 240px; height: 300px; }
+  }
+
+  @media (max-width: 600px) {
+    .menu-grid { grid-template-columns: 1fr; }
+    .proceso-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════
-     FLOATING WHATSAPP
-══════════════════════════════════ -->
-<a href="https://wa.me/TUNUMERO?text=Hola%20Benny%20Pizza!%20Quiero%20hacer%20una%20consulta." target="_blank" class="float-wa" aria-label="WhatsApp">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-  </svg>
-</a>
-
-<!-- ══════════════════════════════════
-     NAVBAR
-══════════════════════════════════ -->
-<nav class="nav" id="navbar">
-  <div class="nav-i">
-    <a href="#inicio" class="logo">Benny <em>Pizza</em></a>
-    <ul class="nav-links">
-      <li><a href="#menu">Menú</a></li>
-      <li><a href="#nosotros">Nosotros</a></li>
-      <li><a href="#tips">Cómo Comer</a></li>
-      <li><a href="#reservas">Reservas</a></li>
-      <li><a href="#contacto">Contacto</a></li>
-    </ul>
-    <div class="nav-right">
-      <a href="#reservas" class="btn btn-red">Reservar Mesa</a>
-      <div class="hamburger" id="ham" aria-label="Menú">
-        <span></span><span></span><span></span>
-      </div>
-    </div>
+<!-- ─── NAV ─── -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Benny <span>·</span> Fatto In Casa</a>
+  <ul class="nav-links">
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#menu">Carta</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="https://maps.app.goo.gl/PgzZLP3Mks7gBBnC7" target="_blank" class="nav-cta">¿Cómo llegar?</a></li>
+  </ul>
+  <div class="burger" id="burger">
+    <span></span><span></span><span></span>
   </div>
 </nav>
 
-<div class="mob-menu" id="mob">
-  <a href="#menu"     onclick="closeMob()">Menú</a>
-  <a href="#nosotros" onclick="closeMob()">Nosotros</a>
-  <a href="#tips"     onclick="closeMob()">Cómo Comer</a>
-  <a href="#reservas" onclick="closeMob()">Reservas</a>
-  <a href="#contacto" onclick="closeMob()">Contacto</a>
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#nosotros" onclick="closeMobile()">Nosotros</a>
+  <a href="#menu" onclick="closeMobile()">Carta</a>
+  <a href="#galeria" onclick="closeMobile()">Galería</a>
+  <a href="#contacto" onclick="closeMobile()">Contacto</a>
+  <a href="https://maps.app.goo.gl/PgzZLP3Mks7gBBnC7" target="_blank" style="color:var(--gold)">¿Cómo llegar? →</a>
 </div>
 
-<!-- ══════════════════════════════════
-     HERO
-══════════════════════════════════ -->
-<section class="hero" id="inicio">
-  <div class="hero-bg" id="heroBg"></div>
-  <div class="embers" id="embers"></div>
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-fire-circle"></div>
+
+  <!-- VIDEO PLACEHOLDER — Reemplazar src con tu video real -->
+  <!-- <video id="heroVideo" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.35;">
+    <source src="assets/benny-hero.mp4" type="video/mp4">
+  </video> -->
+
+  <!-- Imagen hero de respaldo (pizza en horno) -->
+  <img
+    src="/mnt/user-data/uploads/Photo_by_Benny_Fatto_In_Casa_in_Ciudad_de_Cauelas__2_.jpg"
+    alt="Pizza napolitana Benny"
+    style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.28;"
+    onerror="this.style.display='none'"
+  >
 
   <div class="hero-content">
-    <div class="hero-eyebrow">🍕 Pizzería Artesanal</div>
-    <h1 class="hero-h1">
-      <span class="brand">Benny Pizza</span>
-      La mejor pizza<br><span class="ital">del barrio</span>
-    </h1>
-    <p class="hero-p">
-      Un lugar íntimo y familiar donde cada pizza se hace con pasión,
-      ingredientes de primera calidad y la mejor atención. 
-      Porque la pizza no es solo comida — es una experiencia.
+    <p class="hero-eyebrow">Pizza Napolitana · Cañuelas · Buenos Aires</p>
+    <h1 class="hero-title">Benny</h1>
+    <p class="hero-subtitle-tag">Fatto In Casa</p>
+    <p class="hero-desc">
+      Masa de larga fermentación, ingredientes de primera y el calor honesto del horno de leña. Cada pizza, una obra.
     </p>
-    <div class="hero-btns">
-      <a href="#reservas" class="btn btn-red">🗓 Reservar Mesa</a>
-      <a href="#menu"     class="btn btn-outline">Ver el Menú</a>
+    <div class="hero-buttons">
+      <a href="#menu" class="btn-primary">Ver la carta</a>
+      <a href="https://maps.app.goo.gl/PgzZLP3Mks7gBBnC7" target="_blank" class="btn-secondary">Cómo llegar →</a>
     </div>
   </div>
 
-  <div class="scroll-hint">
+  <div class="hero-scroll-hint">
     <span>Scroll</span>
-    <svg viewBox="0 0 24 24" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    <div class="scroll-line"></div>
   </div>
 
-  <div class="hero-curve"></div>
+  <div class="video-hero-note">📹 Agrega tu video aquí</div>
 </section>
 
-<!-- ══════════════════════════════════
-     NOSOTROS
-══════════════════════════════════ -->
-<section class="nosotros section" id="nosotros">
+<!-- ─── ABOUT ─── -->
+<section class="about" id="nosotros">
   <div class="container">
-    <div class="nos-grid">
+    <div class="about-grid">
+      <div class="about-text reveal-left">
+        <div class="flag-accent">
+          <div class="flag-segment" style="background:#1a6b3a"></div>
+          <div class="flag-segment" style="background:#f5f0e8"></div>
+          <div class="flag-segment" style="background:#c0392b"></div>
+        </div>
+        <span class="section-eyebrow">Nuestra historia</span>
+        <h2 class="section-title">Hecho con amor,<br><em>desde casa</em></h2>
+        <div class="section-divider"></div>
+        <p>Benny Fatto In Casa nació del amor genuino por la pizza napolitana. No hay atajos: masa madre, fermentación larga, mozzarella que se estira, tomates que saben a tomate.</p>
+        <p>Cada pizza sale del horno de leña de Cañuelas con el mismo cuidado con el que nacen las pizzas de Nápoles. Ingredientes honestos, técnica real, sabor que te lleva lejos.</p>
+        <blockquote class="quote">
+          "La pizza perfecta no se apura.<br>Se espera, se respeta, se disfruta."
+        </blockquote>
 
-      <div class="rl">
-        <div class="tag">Nuestra Historia</div>
-        <h2 class="s-title">Más que pizza,<br><em>es familia.</em></h2>
-        <p>Benny Pizza nació de una idea simple: que la pizza de verdad merece tiempo, amor y los mejores ingredientes. Un lugar donde te sentás y te olvidás del mundo, rodeado de gente que ama lo que hace.</p>
-        <p>Nuestras masas se fermentan durante 48 horas en frío, los tomates llegan seleccionados uno por uno, y la mozzarella entra fresca cada mañana. En Benny Pizza no hay atajos.</p>
-        <p>Íntimo, cálido, familiar. El tipo de lugar al que volvés por el sabor, y te quedás por la onda.</p>
-        <div class="nos-stats">
-          <div>
-            <div class="stat-n"><span class="cnt" data-to="48">0</span>hs</div>
-            <div class="stat-l">Fermentación</div>
+        <div class="stats-grid">
+          <div class="stat-item reveal stagger-1">
+            <span class="stat-num counter" data-target="48">0</span>
+            <span class="stat-label">Horas de fermentación</span>
           </div>
-          <div>
-            <div class="stat-n"><span class="cnt" data-to="100">0</span>%</div>
-            <div class="stat-l">Ingredientes Frescos</div>
+          <div class="stat-item reveal stagger-2">
+            <span class="stat-num counter" data-target="8">0</span>
+            <span class="stat-label">Pizzas en la carta</span>
           </div>
-          <div>
-            <div class="stat-n"><span class="cnt" data-to="20">0</span><sup>+</sup></div>
-            <div class="stat-l">Variedades</div>
+          <div class="stat-item reveal stagger-3">
+            <span class="stat-num">🔥</span>
+            <span class="stat-label">Horno de leña</span>
+          </div>
+          <div class="stat-item reveal stagger-4">
+            <span class="stat-num">100%</span>
+            <span class="stat-label">Fatto in casa</span>
           </div>
         </div>
       </div>
 
-      <div class="rr">
-        <div class="nos-visual">
-          <div class="nos-img">
-            <!-- REEMPLAZAR: poné una foto tuya del local o de una pizza aquí -->
-            <!-- <img src="assets/foto-local.jpg" alt="Interior Benny Pizza"> -->
-            <div class="nos-placeholder">
-              <span class="big">🍕</span>
-              <p>Poné acá una foto del local o de tu pizza estrella<br><small style="opacity:.6">(reemplazá en el HTML)</small></p>
-            </div>
-          </div>
-          <div class="nos-badge">
-            <span class="big">★</span>
-            <span class="small">Calidad</span>
-          </div>
+      <div class="about-visual reveal-right">
+        <img
+          class="about-img-main"
+          src="/mnt/user-data/uploads/Photo_by_Benny_Fatto_In_Casa_in_Ciudad_de_Cauelas__1_.jpg"
+          alt="Pizza napolitana en horno de leña"
+          onerror="this.style.background='#1a1a1a';this.alt=''"
+        >
+        <img
+          class="about-img-accent"
+          src="/mnt/user-data/uploads/Photo_by_Benny_Fatto_In_Casa_in_Ciudad_de_Cauelas.jpg"
+          alt="Detalle pizza"
+          onerror="this.style.background='#111';this.alt=''"
+        >
+        <div class="about-badge">
+          <strong>🍕</strong>
+          Napolitana<br>Auténtica
         </div>
       </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════
-     MENÚ
-══════════════════════════════════ -->
-<section class="menu-section section" id="menu">
-  <div class="container">
-
-    <div class="r" style="text-align:center">
-      <div class="tag">Lo Mejor del Horno</div>
-      <h2 class="s-title" style="text-align:center">Nuestro <em>Menú</em></h2>
-      <p class="s-sub" style="margin:0 auto;text-align:center">
-        Cada receta tiene historia. Ingredientes elegidos con obsesión para que cada bocado sea inolvidable.
-      </p>
-    </div>
-
-    <div class="menu-tabs">
-      <button class="m-tab on" onclick="tab('pizzas',this)">🍕 Pizzas</button>
-      <button class="m-tab"    onclick="tab('calzones',this)">🥙 Calzones</button>
-      <button class="m-tab"    onclick="tab('especiales',this)">⭐ Especiales</button>
-    </div>
-
-    <!-- ── PIZZAS ── -->
-    <div class="m-panel on" id="p-pizzas">
-      <div class="menu-grid">
-
-        <div class="m-card r d1">
-          <div class="m-card-img g1">
-            🍕
-            <!-- FOTO REAL: <img src="assets/mozzarella.jpg" alt="Mozzarella Clásica"> -->
-            <span class="photo-note">📷 Agregar foto</span>
-          </div>
-          <div class="m-card-body">
-            <div class="m-card-top">
-              <h3 class="m-name">Mozzarella Clásica</h3>
-              <span class="m-price">[PRECIO]</span>
-            </div>
-            <p class="m-desc">La base de todo. Masa de fermentación lenta con salsa de tomates San Marzano, fior di latte fresca, albahaca y un hilo de aceite de oliva extra virgen al final.</p>
-            <p class="m-ingr">Masa 48hs · Tomates San Marzano · Fior di latte · Albahaca fresca · AOVE</p>
-            <div class="m-pills"><span class="pill pc">Clásica</span><span class="pill pv">Vegetariana</span></div>
-          </div>
-        </div>
-
-        <div class="m-card r d2">
-          <div class="m-card-img g2">
-            🍅
-            <span class="photo-note">📷 Agregar foto</span>
-          </div>
-          <div class="m-card-body">
-            <div class="m-card-top">
-              <h3 class="m-name">Napolitana</h3>
-              <span class="m-price">[PRECIO]</span>
-            </div>
-            <p class="m-desc">Tomates cherry asados hasta concentrar todos sus azúcares, sobre una base de mozzarella con anchoas en aceite, alcaparras y orégano silvestre de la Patagonia.</p>
-            <p class="m-ingr">Tomates cherry asados · Anchoas · Alcaparras · Mozzarella · Orégano patagónico</p>
-            <div class="m-pills"><span class="pill pc">Clásica</span></div>
-          </div>
-        </div>
-
-        <div class="m-card r d3">
-          <div class="m-card-img g3">
-            🧅
-            <span class="photo-note">📷 Agregar foto</span>
-          </div>
-          <div class="m-card-body">
-            <div class="m-card-top">
-              <h3 class="m-name">Fugazzeta Rellena</h3>
-              <span class="m-price">[PRECIO]</span>
-            </div>
-            <p class="m-desc">La reina porteña. Cebollas caramelizadas a fuego lento dos horas, encerradas entre dos capas de masa con doble mozzarella derretida y lluvia de parmesano.</p>
-            <p class="m-ingr">Cebolla caramelizada · Doble mozzarella · Parmesano DOP · Aceite de oliva · Orégano</p>
-            <div class="m-pills"><span class="pill pf">Firma del Chef</span><span class="pill pv">Vegetariana</span></div>
-          </div>
-        </div>
-
-        <div class="m-card r d4">
-          <div class="m-card-img g4">
-            🌶️
-            <span class="photo-note">📷 Agregar foto</span>
-          </div>
-          <div class="m-card-body">
-            <div class="m-card-top">
-              <h3 class="m-name">Calabresa & Provolone</h3>
-              <span class="m-price">[PRECIO]</span>
-            </div>
-            <p class="m-desc">Chorizo calabrés artesanal sobre mozzarella ahumada, con rodajas de rocoto fresco y provolone derretido que le da ese carácter intenso e inconfundible.</p>
-            <p class="m-ingr">Chorizo calabrés · Mozzarella ahumada · Provolone · Rocoto · Tomates</p>
-            <div class="m-pills"><span class="pill ps">Picante</span></div>
-          </div>
-        </div>
-
-        <div class="m-card r d5">
-          <div class="m-card-img g5">
-            🧀
-            <span class="photo-note">📷 Agregar foto</span>
-          </div>
-          <div class="m-card-body">
-            <div class="m-card-top">
-              <h3 class="m-name">Cuatro Quesos</h3>
-              <span class="m-price">[PRECIO]</span>
-            </div>
-            <p class="m-desc">El paraíso del quesero. Mozzarella, provolone, gorgonzola y parmesano rallado en el momento. Terminada con un hilo de miel de trufa negra que lo cambia todo.</p>
-            <p class="m-ingr">Mozzarella · Provolone · Gorgonzola · Parmesano DOP · Miel de trufa negra</p>
-            <div class="m-pills"><span class="pill pf">Estrella</span><span class="pill pv">Vegetariana</span></div>
-          </div>
-        </div>
-
-        <div class="m-card r d6">
-          <div class="m-card-img g6">
-            👨‍🍳
-            <span class="photo-note">📷 Agregar foto</span>
-          </div>
-          <div class="m-card-body">
-            <div class="m-card-top">
-              <h3 class="m-name">La Benny</h3>
-              <span class="m-price">[PRECIO]</span>
-            </div>
-            <p class="m-desc">Nuestra pizza estrella y única. Morrones asados a leña, cebolla morada encurtida, rúcula fresca, parmesano en láminas, sobre salsa criolla casera. La identidad de Benny.</p>
-            <p class="m-ingr">Salsa criolla casera · Morrones asados · Cebolla morada · Rúcula · Parmesano</p>
-            <div class="m-pills"><span class="pill pf">La Firma</span><span class="pill pv">Vegetariana</span></div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── CALZONES ── -->
-    <div class="m-panel" id="p-calzones">
-      <div class="menu-grid">
-
-        <div class="m-card r d1">
-          <div class="m-card-img g1">
-            🥙
-            <span class="photo-note">📷 Agregar foto</span>
-          </div>
-          <div class="m-card-body">
-            <div class="m-card-top">
-              <h3 class="m-name">Calzone Clásico</h3>
-              <span class="m-price">[PRECIO]</span>
-            </div>
-            <p class="m-desc">El que lo empezó todo. Jamón cocido premium, mozzarella abundante, ricotta cremosa y albahaca, envueltos en nuestra masa crocante y dorada salida del horno.</p>
-            <p class="m-ingr">Jamón cocido · Mozzarella · Ricotta · Albahaca · Masa fermentada 48hs</p>
-            <div class="m-pills"><span class="pill pc">Clásico</span></div>
-          </div>
-        </div>
-
-        <div class="m-card r d2">
-          <div class="m-card-img g7">
-            🧅
-            <span class="photo-note">📷 Agregar foto</span>
-          </div>
-          <div class="m-card-body">
-            <div class="m-card-top">
-              <h3 class="m-name">Calzone Fugazza</h3>
-              <span class="m-price">[PRECIO]</span>
-            </div>
-            <p class="m-desc">Lo mejor de la fugazzeta en formato calzone. Cebollas dulces caramelizadas, mozzarella generosa, aceitunas negras y orégano que lo perfuma todo. Un beso italiano.</p>
-            <p class="m-ingr">Cebolla caramelizada · Mozzarella · Aceitunas negras · Orégano · Masa de pizza</p>
-            <div class="m-pills"><span class="pill pf">Especial</span><span class="pill pv">Vegetariano</span></div>
-          </div>
-        </div>
-
-        <div class="m-card r d3">
-          <div class="m-card-img g8">
-            🍄
-            <span class="photo-note">📷 Agregar foto</span>
-          </div>
-          <div class="m-card-body">
-            <div class="m-card-top">
-              <h3 class="m-name">Calzone Forestal</h3>
-              <span class="m-price">[PRECIO]</span>
-            </div>
-            <p class="m-desc">Para los que buscan algo diferente. Hongos salteados en manteca y ajo, espinaca fresca, mozzarella, nueces tostadas y queso de cabra que sorprende en cada bocado.</p>
-            <p class="m-ingr">Hongos mixtos · Espinaca · Mozzarella · Nueces · Queso de cabra · Ajo salteado</p>
-            <div class="m-pills"><span class="pill pf">Chef</span><span class="pill pv">Vegetariano</span></div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── ESPECIALES ── -->
-    <div class="m-panel" id="p-especiales">
-      <div style="text-align:center; padding:80px 20px; color:var(--text3);">
-        <div style="font-size:3rem; margin-bottom:16px">⭐</div>
-        <h3 style="font-family:var(--f-head); font-size:1.6rem; color:var(--text2); margin-bottom:12px">Especiales de la Semana</h3>
-        <p style="font-size:.9rem; max-width:380px; margin:0 auto; line-height:1.75">
-          Los especiales cambian cada semana según la temporada y lo que llegó fresco del mercado.
-          Consultanos por WhatsApp para saber qué hay hoy.
-        </p>
-        <a href="https://wa.me/TUNUMERO?text=Hola!%20Quiero%20saber%20cuáles%20son%20los%20especiales%20de%20esta%20semana%20en%20Benny%20Pizza%20🍕" target="_blank" class="btn btn-wa" style="margin-top:28px; display:inline-flex">
-          Consultar Especiales del Día
-        </a>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ══════════════════════════════════
-     TIPS
-══════════════════════════════════ -->
-<section class="tips section" id="tips">
-  <div class="container">
-
-    <div class="tips-header r">
-      <div class="tag">El Arte de Comer</div>
-      <h2 class="s-title">Cómo disfrutar tu pizza<br><em>y tu calzone</em></h2>
-      <p class="s-sub">
-        Hay una ciencia y un arte detrás de cada bocado. Estos son nuestros tips para que la experiencia sea perfecta.
-      </p>
-    </div>
-
-    <div class="tips-grid">
-
-      <div class="tip-card r d1">
-        <span class="tip-num">01</span>
-        <span class="tip-icon">🔄</span>
-        <h3 class="tip-title">La Técnica del Doblez</h3>
-        <p class="tip-body">Las pizzas napolitanas se comen dobladas al medio, como un libro. Así el queso no cae, el relleno se concentra y cada bocado tiene la proporción perfecta de masa, salsa y queso. Los napolitanos lo llaman <em>"a portafoglio"</em>.</p>
-      </div>
-
-      <div class="tip-card r d2">
-        <span class="tip-num">02</span>
-        <span class="tip-icon">🌿</span>
-        <h3 class="tip-title">Empezá por el Centro</h3>
-        <p class="tip-body">No empieces por el borde. El centro concentra todos los ingredientes — la salsa más rica, el queso más generoso. Llegá al borde después, cuando el paladar ya está despierto. El <em>cornicione</em> es el final glorioso.</p>
-      </div>
-
-      <div class="tip-card r d3">
-        <span class="tip-num">03</span>
-        <span class="tip-icon">⏳</span>
-        <h3 class="tip-title">El Calzone: Esperá 2 Minutos</h3>
-        <p class="tip-body">El calzone recién salido del horno está a casi 200°. Esperá 2 minutos antes de cortarlo — el relleno se asienta, los quesos dejan de estar líquidos y podés morderlo sin quemarte. La paciencia vale oro.</p>
-      </div>
-
-      <div class="tip-card r d4">
-        <span class="tip-num">04</span>
-        <span class="tip-icon">🥤</span>
-        <h3 class="tip-title">El Maridaje Perfecto</h3>
-        <p class="tip-body">Pizzas con anchoas van increíbles con un Sangiovese o birra rossa italiana. Para la Cuatro Quesos, un Malbec joven. Para la Mozzarella Clásica: agua con gas y limón. La fugazzeta y una fría bien fría: clásico porteño de ley.</p>
-      </div>
-
-      <div class="tip-card r d5">
-        <span class="tip-num">05</span>
-        <span class="tip-icon">🍕</span>
-        <h3 class="tip-title">Argentina vs Italia</h3>
-        <p class="tip-body">La pizza argentina es más alta, con más queso y más media masa. La napolitana es más fina, húmeda en el centro y con bordes bien inflados. En Benny hacemos nuestra propia interpretación: masa con carácter, queso generoso, sin exagerar.</p>
-      </div>
-
-      <div class="tip-card r d6">
-        <span class="tip-num">06</span>
-        <span class="tip-icon">🔥</span>
-        <h3 class="tip-title">El Secreto de la Masa</h3>
-        <p class="tip-body">Nuestra masa fermenta 48 horas en frío. Eso desarrolla sabores que una masa de 2 horas nunca puede tener — acidez suave, alveolos grandes y una digestibilidad que te deja liviano. Si podés resistir el olor, pedí ver la masa cruda.</p>
-      </div>
-
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════
-     RESERVAS
-══════════════════════════════════ -->
-<section class="reservas section" id="reservas">
+<!-- ─── MENU ─── -->
+<section class="menu-section" id="menu">
   <div class="container">
-
-    <div class="r" style="text-align:center; margin-bottom:56px">
-      <div class="tag">Reservá tu Mesa</div>
-      <h2 class="s-title">Asegurá tu lugar <em>esta noche</em></h2>
-      <p class="s-sub" style="margin:0 auto; text-align:center">
-        Somos un lugar íntimo — las mesas son limitadas.
-        Reservá con anticipación y llegá sin preocupaciones.
-      </p>
+    <div class="menu-header reveal">
+      <span class="section-eyebrow">Nuestra carta</span>
+      <h2 class="section-title">Pizzas Napolitanas</h2>
+      <div class="section-divider"></div>
+      <p style="color:rgba(245,240,232,0.5);font-size:14px;margin-top:16px;">Todas sobre masa de larga fermentación, horneadas en horno de leña.</p>
     </div>
 
-    <div class="res-grid">
-
-      <!-- ── FORM → WHATSAPP ── -->
-      <div class="rl">
-        <h3 class="res-title">📋 Reservar por WhatsApp</h3>
-        <p class="res-sub">Completá el formulario y te abrimos el chat con todos los datos listos. Confirmamos en minutos.</p>
-
-        <div class="fg">
-          <label class="fl" for="rname">Tu Nombre</label>
-          <input class="fi" type="text" id="rname" placeholder="¿Cómo te llaman?">
+    <div class="menu-grid">
+      <div class="menu-item reveal stagger-1">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Margherita</span>
+          <span class="menu-item-price">$17.000</span>
         </div>
-        <div class="fr">
-          <div class="fg">
-            <label class="fl" for="rdate">Fecha</label>
-            <input class="fi" type="date" id="rdate">
-          </div>
-          <div class="fg">
-            <label class="fl" for="rtime">Horario</label>
-            <select class="fi" id="rtime">
-              <option value="">Elegí horario</option>
-              <option>12:00 – 13:00</option>
-              <option>13:00 – 14:00</option>
-              <option>14:00 – 15:00</option>
-              <option>20:00 – 21:00</option>
-              <option>21:00 – 22:00</option>
-              <option>22:00 – 23:00</option>
-            </select>
-          </div>
-        </div>
-        <div class="fg">
-          <label class="fl" for="rguests">¿Cuántos son?</label>
-          <select class="fi" id="rguests">
-            <option value="">Número de personas</option>
-            <option>1 persona</option>
-            <option>2 personas</option>
-            <option>3 personas</option>
-            <option>4 personas</option>
-            <option>5 personas</option>
-            <option>6 personas</option>
-            <option>Más de 6 – consultar</option>
-          </select>
-        </div>
-        <div class="fg">
-          <label class="fl" for="rnotes">¿Algo especial? (opcional)</label>
-          <textarea class="fi" id="rnotes" rows="3" placeholder="Cumpleaños, alergias, mesa preferida..."></textarea>
-        </div>
-
-        <button class="btn btn-wa" onclick="enviarReserva()" style="width:100%;justify-content:center;font-size:.95rem;padding:15px">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="white">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-          </svg>
-          Enviar Reserva por WhatsApp
-        </button>
-
-        <p style="font-size:.74rem; color:var(--text3); margin-top:12px; line-height:1.55">
-          💬 Un humano confirma tu reserva en menos de 30 min durante el horario de atención.
-        </p>
+        <p class="menu-item-desc">Salsa de tomate, muzzarella y albahaca fresca.</p>
+        <span class="menu-item-tag">Clásica</span>
       </div>
 
-      <!-- ── CALENDLY / GOOGLE CAL ── -->
-      <div class="rr">
-        <h3 class="res-title">🗓 Reserva Online (Calendly)</h3>
-        <p class="res-sub">¿Preferís elegir día y hora directamente en el calendario? Activá Calendly (100% gratis) en 5 minutos.</p>
-
-        <!--
-        ═══════════════════════════════════════════════
-        PARA ACTIVAR CALENDLY:
-        1. Creá cuenta gratis en https://calendly.com
-        2. Creá un evento "Reserva de Mesa – Benny Pizza" (30-60 min)
-        3. Reemplazá TU-USUARIO en la línea data-url de abajo
-        4. Descomentá el bloque <div class="calendly-inline-widget">
-        5. Descomentá el <script> de Calendly
-        6. Eliminá el bloque .cal-panel
-        ═══════════════════════════════════════════════
-        -->
-
-        <!-- DESCOMENTAR CUANDO TENGAS TU CALENDLY:
-        <div class="calendly-inline-widget"
-          data-url="https://calendly.com/TU-USUARIO/reservas-benny-pizza"
-          style="min-width:320px;height:630px;border-radius:2px;overflow:hidden;">
+      <div class="menu-item reveal stagger-2">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Fugazza</span>
+          <span class="menu-item-price">$17.000</span>
         </div>
-        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-        -->
+        <p class="menu-item-desc">Base de cebolla marinada y muzzarella.</p>
+        <span class="menu-item-tag">Sin tomate</span>
+      </div>
 
-        <div class="cal-panel">
-          <span class="big">📅</span>
-          <h4>Calendly no configurado aún</h4>
-          <p>
-            Creá tu cuenta gratis en <strong style="color:var(--gold3)">calendly.com</strong>,
-            configurá el tipo de evento y pegá tu URL donde dice <code>TU-USUARIO</code> en el código HTML.
-          </p>
-          <a href="https://calendly.com" target="_blank" class="btn btn-outline" style="font-size:.78rem;padding:10px 18px;margin-top:6px">
-            Crear cuenta en Calendly →
+      <div class="menu-item reveal stagger-3">
+        <div class="menu-item-header">
+          <span class="menu-item-name">4 Quesos</span>
+          <span class="menu-item-price">$18.000</span>
+        </div>
+        <p class="menu-item-desc">Queso azul, provolone, parmesano y muzzarella.</p>
+        <span class="menu-item-tag">Favorita</span>
+      </div>
+
+      <div class="menu-item reveal stagger-4">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Crunchy</span>
+          <span class="menu-item-price">$20.000</span>
+        </div>
+        <p class="menu-item-desc">Queso azul, parmesano, muzzarella, frutos secos y miel.</p>
+        <span class="menu-item-tag">Especial</span>
+      </div>
+
+      <div class="menu-item reveal stagger-5">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Rucola</span>
+          <span class="menu-item-price">$20.000</span>
+        </div>
+        <p class="menu-item-desc">Salsa de tomate, muzzarella, rúcula, cherrys confitados y parmesano rallado. Opción con jamón crudo.</p>
+        <span class="menu-item-tag">Premium</span>
+      </div>
+
+      <div class="menu-item reveal stagger-6">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Pepperoni</span>
+          <span class="menu-item-price">$19.000</span>
+        </div>
+        <p class="menu-item-desc">Salsa de tomate, muzzarella, pepperoni ahumado. Opción con aceite picante.</p>
+        <span class="menu-item-tag">🔥 Imperdible</span>
+      </div>
+
+      <div class="menu-item reveal stagger-7">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Porcini</span>
+          <span class="menu-item-price">$20.000</span>
+        </div>
+        <p class="menu-item-desc">Muzzarella, cebolla morada caramelizada, provolone y panceta ahumada.</p>
+        <span class="menu-item-tag">Sin tomate</span>
+      </div>
+
+      <div class="menu-item reveal stagger-8">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Funghi</span>
+          <span class="menu-item-price">$20.000</span>
+        </div>
+        <p class="menu-item-desc">Muzzarella, portobellos salteados, parmesano rayado y líneas de mantequilla de maní.</p>
+        <span class="menu-item-tag">Única</span>
+      </div>
+    </div>
+
+    <p class="menu-note reveal">Masa de larga fermentación · Horno de leña · Ingredientes seleccionados<br><span>Preguntá por las especialidades del día 🍕</span></p>
+  </div>
+</section>
+
+<!-- ─── GALLERY ─── -->
+<section class="gallery-section" id="galeria">
+  <div class="container">
+    <div class="gallery-header reveal">
+      <span class="section-eyebrow">Galería</span>
+      <h2 class="section-title">Del fuego<br><em>a tu mesa</em></h2>
+      <div class="section-divider"></div>
+    </div>
+  </div>
+  <div class="gallery-strip">
+    <div class="gallery-item reveal stagger-1">
+      <img src="/mnt/user-data/uploads/Photo_by_Benny_Fatto_In_Casa_in_Ciudad_de_Cauelas__2_.jpg" alt="Pizza en horno">
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Al rojo vivo</span></div>
+    </div>
+    <div class="gallery-item reveal stagger-2">
+      <img src="/mnt/user-data/uploads/Photo_by_Benny_Fatto_In_Casa_in_Ciudad_de_Cauelas__1_.jpg" alt="Pizza napolitana">
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Tre colori</span></div>
+    </div>
+    <div class="gallery-item reveal stagger-3">
+      <img src="/mnt/user-data/uploads/Photo_by_Benny_Fatto_In_Casa_in_Ciudad_de_Cauelas.jpg" alt="Pizza pepperoni">
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Pepperoni</span></div>
+    </div>
+    <div class="gallery-item reveal stagger-4">
+      <img src="/mnt/user-data/uploads/Photo_by_Benny_Fatto_In_Casa_on_April_12_2025.jpg" alt="Margherita">
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Margherita</span></div>
+    </div>
+    <div class="gallery-item reveal stagger-5">
+      <img src="/mnt/user-data/uploads/Photo_by_Benny_Fatto_In_Casa_on_August_24_2024.jpg" alt="Horno de leña">
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Horno de leña</span></div>
+    </div>
+    <div class="gallery-item reveal stagger-6">
+      <img src="/mnt/user-data/uploads/Photo_by_Benny_Fatto_In_Casa_on_December_14_2024.jpg" alt="Pizza horneada">
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Recién horneada</span></div>
+    </div>
+    <div class="gallery-item reveal stagger-7">
+      <img src="/mnt/user-data/uploads/_Nuestra_tre_colori_una_de_las_destacadas_de_nuest.jpg" alt="Tre colori">
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Tre Colori</span></div>
+    </div>
+    <div class="gallery-item reveal stagger-8">
+      <img src="/mnt/user-data/uploads/Photo_by_Benny_Fatto_In_Casa_on_February_06_2026.jpg" alt="Pizza especial">
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Especial del día</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROCESO ─── -->
+<section class="proceso">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:20px;">
+      <span class="section-eyebrow">El proceso</span>
+      <h2 class="section-title">Así hacemos<br><em>cada pizza</em></h2>
+      <div class="section-divider" style="margin:0 auto;"></div>
+    </div>
+    <div class="proceso-grid">
+      <div class="proceso-step reveal stagger-1" data-num="01">
+        <div class="proceso-icon">🌾</div>
+        <h3>La masa</h3>
+        <p>Harina seleccionada, fermentación larga de 48 horas. Sin apuros. El tiempo hace el trabajo.</p>
+      </div>
+      <div class="proceso-step reveal stagger-2" data-num="02">
+        <div class="proceso-icon">🍅</div>
+        <h3>Los ingredientes</h3>
+        <p>Tomates San Marzano, muzzarella fresca, ingredientes de primera categoría. Sin compromiso.</p>
+      </div>
+      <div class="proceso-step reveal stagger-3" data-num="03">
+        <div class="proceso-icon">👐</div>
+        <h3>El estirado</h3>
+        <p>A mano, con técnica napolitana. El borde alto (cornicione) es la firma de una pizza auténtica.</p>
+      </div>
+      <div class="proceso-step reveal stagger-4" data-num="04">
+        <div class="proceso-icon">🔥</div>
+        <h3>El horno</h3>
+        <p>Leña, 450°C, 90 segundos. El calor del horno de piedra da ese sabor que no se puede imitar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section class="contact-section" id="contacto">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info reveal-left">
+        <span class="section-eyebrow">Dónde estamos</span>
+        <h2 class="section-title">Vení a<br><em>buscarnos</em></h2>
+        <div class="section-divider"></div>
+        <p>Encontranos en Cañuelas, Buenos Aires. Pedimos por pedido — escribinos para coordinar tu pizza.</p>
+
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div class="contact-item-text">
+            <span>Ubicación</span>
+            <p>Cañuelas, Buenos Aires, Argentina</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-item-icon">📱</div>
+          <div class="contact-item-text">
+            <span>Instagram</span>
+            <p><a href="https://www.instagram.com/benny_pizza" target="_blank" style="color:var(--gold);text-decoration:none;">@benny_pizza</a></p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-item-icon">🗺️</div>
+          <div class="contact-item-text">
+            <span>Google Maps</span>
+            <p><a href="https://maps.app.goo.gl/PgzZLP3Mks7gBBnC7" target="_blank" style="color:var(--gold);text-decoration:none;">Ver ubicación exacta →</a></p>
+          </div>
+        </div>
+
+        <div class="social-links">
+          <a href="https://www.instagram.com/benny_pizza" target="_blank" class="social-link" title="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://maps.app.goo.gl/PgzZLP3Mks7gBBnC7" target="_blank" class="social-link" title="Google Maps">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
           </a>
         </div>
 
-        <div style="margin-top:16px; padding:16px 18px; background:var(--card); border:1px solid var(--border); display:flex; gap:12px; align-items:flex-start;">
-          <span style="font-size:1.1rem;flex-shrink:0">💡</span>
-          <p style="font-size:.8rem; color:var(--text2); line-height:1.6">
-            <strong>Alternativa gratis:</strong> Google Calendar también tiene reservas online. 
-            Escribinos al WhatsApp y te ayudamos a configurarlo.
-          </p>
+        <a href="https://maps.app.goo.gl/PgzZLP3Mks7gBBnC7" target="_blank" class="map-btn">
+          🗺️ Abrir en Google Maps
+        </a>
+      </div>
+
+      <div class="contact-map reveal-right">
+        <iframe
+          src="https://maps.google.com/maps?q=Cañuelas,+Buenos+Aires,+Argentina&t=&z=14&ie=UTF8&iwloc=&output=embed"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Benny Pizza - Cañuelas"
+        ></iframe>
+        <div style="margin-top:16px;text-align:center;">
+          <p style="font-size:12px;color:rgba(245,240,232,0.4);">Haz click en el mapa para ver la ubicación exacta en Google Maps</p>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════
-     CONTACTO
-══════════════════════════════════ -->
-<section class="contacto section" id="contacto">
-  <div class="container">
-
-    <div class="r" style="text-align:center; margin-bottom:48px">
-      <div class="tag">Encontranos</div>
-      <h2 class="s-title">Siempre <em>disponibles</em></h2>
-    </div>
-
-    <div class="ct-grid">
-
-      <div class="ct-card r d1">
-        <div class="ct-icon">📍</div>
-        <h3>Ubicación</h3>
-        <p>[DIRECCIÓN COMPLETA]<br>[CIUDAD, PROVINCIA]</p>
-        <a href="https://maps.google.com/?q=benny+pizza" target="_blank" style="color:var(--gold3);margin-top:12px;display:inline-block;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em">
-          Ver en Google Maps →
-        </a>
-      </div>
-
-      <div class="ct-card r d2">
-        <div class="ct-icon">🕐</div>
-        <h3>Horarios</h3>
-        <p>
-          Martes a Domingo<br>
-          Mediodía: 12:00 – 15:00<br>
-          Noche: 20:00 – 23:30
-          <span style="color:var(--red);font-size:.82rem;display:block;margin-top:6px">Lunes cerrado</span>
-        </p>
-      </div>
-
-      <div class="ct-card r d3">
-        <div class="ct-icon">📱</div>
-        <h3>WhatsApp</h3>
-        <p style="margin-bottom:18px">Respondemos rápido.<br>Reservas, consultas, lo que necesités.</p>
-        <a href="https://wa.me/TUNUMERO?text=Hola%20Benny%20Pizza!%20Quiero%20hacer%20una%20consulta." target="_blank" class="btn btn-wa" style="font-size:.78rem;padding:10px 18px">
-          Escribinos por WhatsApp
-        </a>
-      </div>
-
-    </div>
-
-    <!-- Instagram Banner -->
-    <div class="ig-banner r">
-      <div style="font-size:2.8rem;margin-bottom:14px;position:relative">📸</div>
-      <h3>Seguinos en Instagram</h3>
-      <p>
-        Mirá nuestras pizzas del día, novedades, especiales de la semana y el detrás de escena de Benny Pizza.
-        Todo lo que se cuece entre el horno y la mesa.
-      </p>
-      <a href="https://www.instagram.com/benny_pizza/" target="_blank" class="btn btn-red" style="position:relative">
-        @benny_pizza en Instagram
-      </a>
-    </div>
-
-  </div>
-</section>
-
-<!-- ══════════════════════════════════
-     FOOTER
-══════════════════════════════════ -->
+<!-- ─── FOOTER ─── -->
 <footer>
-  <div class="container">
-    <div class="ft-top">
-      <a href="#inicio" class="ft-logo">Benny <em>Pizza</em></a>
-      <ul class="ft-links">
-        <li><a href="#menu">Menú</a></li>
-        <li><a href="#nosotros">Nosotros</a></li>
-        <li><a href="#tips">Tips</a></li>
-        <li><a href="#reservas">Reservas</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-      </ul>
-      <div class="ft-social">
-        <a href="https://www.instagram.com/benny_pizza/" target="_blank" aria-label="Instagram">📸</a>
-        <a href="https://wa.me/TUNUMERO" target="_blank" aria-label="WhatsApp">💬</a>
-      </div>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Benny <span>·</span> Fatto In Casa</div>
+      <div class="footer-tagline">Pizza Napolitana · Cañuelas · Buenos Aires</div>
     </div>
-    <hr class="ft-divider">
-    <div class="ft-bottom">
-      <p>© 2025 Benny Pizza · Todos los derechos reservados</p>
-      <a href="https://www.instagram.com/benny_pizza/" target="_blank" class="ft-ig">
-        📸 @benny_pizza
-      </a>
+    <div class="footer-copy">
+      <p>© 2026 Benny Fatto In Casa</p>
+      <p style="margin-top:6px;">Hecho con 🔥 y masa madre</p>
     </div>
   </div>
 </footer>
 
-<!-- ══════════════════════════════════
-     JAVASCRIPT
-══════════════════════════════════ -->
 <script>
-  /* ── CONFIGURACIÓN ─────────────────
-     Reemplazá con los datos reales de Benny Pizza:
-  ──────────────────────────────────── */
-  const WA = 'TUNUMERO'; // ej: 5491155554444 (sin + ni espacios)
-
-  /* ── NAV SCROLL ─────────────────── */
-  const nav = document.getElementById('navbar');
+  // NAV scroll
+  const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', scrollY > 50);
-  }, { passive: true });
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  });
 
-  /* ── HAMBURGER ──────────────────── */
-  const ham = document.getElementById('ham');
-  const mob = document.getElementById('mob');
-  ham.addEventListener('click', () => mob.classList.toggle('open'));
-  function closeMob() { mob.classList.remove('open'); }
+  // Burger
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  function closeMobile() { mobileMenu.classList.remove('open'); }
 
-  /* ── MENU TABS ──────────────────── */
-  function tab(id, btn) {
-    document.querySelectorAll('.m-panel').forEach(p => p.classList.remove('on'));
-    document.querySelectorAll('.m-tab').forEach(b => b.classList.remove('on'));
-    document.getElementById('p-' + id).classList.add('on');
-    btn.classList.add('on');
-    // Re-trigger reveal for newly visible cards
-    document.querySelectorAll('#p-' + id + ' .r').forEach((el, i) => {
-      el.classList.remove('on');
-      setTimeout(() => el.classList.add('on'), 60 + i * 80);
-    });
-  }
-
-  /* ── INTERSECTION OBSERVER ──────── */
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('on');
-        io.unobserve(e.target);
+  // Intersection Observer — reveals
+  const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
 
-  document.querySelectorAll('.r, .rl, .rr, .rs').forEach(el => io.observe(el));
+  // Counter animation
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target);
+    const duration = 1800;
+    const step = target / (duration / 16);
+    let current = 0;
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) {
+        el.textContent = target;
+        clearInterval(timer);
+      } else {
+        el.textContent = Math.floor(current);
+      }
+    }, 16);
+  }
 
-  /* ── COUNTERS ───────────────────── */
-  const cio = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      const el = e.target;
-      const target = +el.dataset.to;
-      const t0 = performance.now();
-      const dur = 1600;
-      (function step(now) {
-        const p = Math.min((now - t0) / dur, 1);
-        const ease = 1 - Math.pow(1 - p, 3);
-        el.textContent = Math.round(ease * target);
-        if (p < 1) requestAnimationFrame(step);
-      })(t0);
-      cio.unobserve(el);
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+        entry.target.classList.add('counted');
+        animateCounter(entry.target);
+      }
     });
-  }, { threshold: .5 });
-  document.querySelectorAll('.cnt').forEach(el => cio.observe(el));
+  }, { threshold: 0.5 });
 
-  /* ── EMBER PARTICLES ────────────── */
-  const ec = document.getElementById('embers');
-  for (let i = 0; i < 22; i++) {
-    const e = document.createElement('div');
-    e.className = 'ember';
-    const sz = 2 + Math.random() * 3;
-    const dx = (Math.random() - .5) * 130;
-    const dur = 5 + Math.random() * 9;
-    const del = Math.random() * 12;
-    const colors = ['#F5A020', '#FF6030', '#FFD000', '#E02020', '#FFC040'];
-    const c = colors[Math.floor(Math.random() * colors.length)];
-    e.style.cssText = `
-      left:${5 + Math.random() * 90}%;
-      width:${sz}px; height:${sz}px;
-      background:${c};
-      --dx:${dx}px;
-      animation-duration:${dur}s;
-      animation-delay:${del}s;
-      box-shadow:0 0 ${sz * 2}px ${c};
-    `;
-    ec.appendChild(e);
-  }
+  document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
 
-  /* ── PARALLAX HERO ──────────────── */
-  const heroBg = document.getElementById('heroBg');
+  // Parallax on hero fire circle
+  const fireCircle = document.querySelector('.hero-fire-circle');
   window.addEventListener('scroll', () => {
-    if (heroBg) heroBg.style.transform = `translateY(${scrollY * .38}px)`;
-  }, { passive: true });
-
-  /* ── RESERVA → WHATSAPP ─────────── */
-  document.getElementById('rdate').min = new Date().toISOString().split('T')[0];
-
-  function enviarReserva() {
-    const nombre  = document.getElementById('rname').value.trim();
-    const fecha   = document.getElementById('rdate').value;
-    const horario = document.getElementById('rtime').value;
-    const personas= document.getElementById('rguests').value;
-    const notas   = document.getElementById('rnotes').value.trim();
-
-    if (!nombre || !fecha || !horario || !personas) {
-      alert('Por favor completá nombre, fecha, horario y número de personas.');
-      return;
+    if (fireCircle) {
+      const scrolled = window.scrollY;
+      fireCircle.style.transform = `translateY(calc(-50% + ${scrolled * 0.3}px))`;
     }
-
-    const d = new Date(fecha + 'T12:00:00');
-    const fechaFmt = d.toLocaleDateString('es-AR', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
-
-    let msg = `🍕 *RESERVA – BENNY PIZZA*\n\n`;
-    msg += `👤 *Nombre:* ${nombre}\n`;
-    msg += `📅 *Fecha:* ${fechaFmt}\n`;
-    msg += `🕐 *Horario:* ${horario}\n`;
-    msg += `👥 *Personas:* ${personas}\n`;
-    if (notas) msg += `📝 *Notas:* ${notas}\n`;
-    msg += `\n_Reserva enviada desde la web de Benny Pizza_`;
-
-    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, '_blank');
-  }
+  }, { passive: true });
 </script>
 
 </body>
