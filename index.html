@@ -134,24 +134,101 @@ section { padding: 110px 48px; }
 .about-badge { position: absolute; top: 26px; right: -16px; background: var(--gold); color: var(--black); width: 88px; height: 88px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; text-align: center; line-height: 1.3; }
 .about-badge strong { font-family: 'Cormorant Garamond', serif; font-size: 22px; display: block; }
 
-/* ══ MENU ══ */
-.menu-sec { background: var(--black); }
-.menu-header { text-align: center; margin-bottom: 60px; }
-.menu-header .divider { margin: 0 auto; }
-.pizzas-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
-.pizza-card { background: var(--dark2); border: 1px solid rgba(200,169,110,0.06); overflow: hidden; position: relative; transition: transform 0.4s, box-shadow 0.4s; }
-.pizza-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(200,169,110,0.2); z-index: 2; }
-.pizza-img-wrap { width: 100%; aspect-ratio: 4/3; overflow: hidden; position: relative; }
-.pizza-card-img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.85) saturate(1.2); transition: filter 0.5s, transform 0.6s; display: block; }
-.pizza-card:hover .pizza-card-img { filter: brightness(1) saturate(1.4); transform: scale(1.05); }
-.pizza-fallback { width: 100%; aspect-ratio: 4/3; background: radial-gradient(ellipse at center, #1e0d00, #080400); display: flex; align-items: center; justify-content: center; font-size: 44px; }
-.pizza-card-body { padding: 20px 22px 24px; }
-.pizza-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; gap: 8px; }
-.pizza-name { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 600; font-style: italic; }
-.pizza-price { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 600; color: var(--gold); white-space: nowrap; }
-.pizza-desc { font-size: 12.5px; color: var(--white-dim); line-height: 1.65; }
-.pizza-tag { display: inline-block; margin-top: 10px; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(200,169,110,0.22); padding: 3px 8px; border-radius: 2px; }
+<!-- MENU -->
+<section class="menu-sec" id="menu">
+  <div class="container">
+    <div class="menu-header rv">
+      <span class="eyebrow">Nuestra carta</span>
+      <h2 class="sec-title">Pizzas <em>Napolitanas</em></h2>
+      <div class="divider"></div>
+      <p style="color:var(--white-dim);font-size:13px;margin-top:-24px">Masa de larga fermentación · Horno de leña · Ingredientes seleccionados</p>
+    </div>
+    <div class="pizzas-grid">
 
+      <div class="pizza-card rv d1">
+        <div class="pizza-img-wrap"><img class="pizza-card-img" src="assets/images/photo-margherita.jpg" alt="Margherita" onerror="this.parentElement.innerHTML='<div class=\'pizza-fallback\'>🍕</div>'"></div>
+        <div class="pizza-card-body">
+          <div class="pizza-card-header"><span class="pizza-name">Margherita</span><span class="pizza-price">$17.000</span></div>
+          <p class="pizza-desc">Salsa de tomate, muzzarella y albahaca fresca.</p>
+          <span class="pizza-tag">Clásica</span>
+        </div>
+      </div>
+
+      <div class="pizza-card rv d2">
+        <div class="pizza-fallback">🧅</div>
+        <div class="pizza-card-body">
+          <div class="pizza-card-header"><span class="pizza-name">Fugazza</span><span class="pizza-price">$17.000</span></div>
+          <p class="pizza-desc">Base de cebolla marinada y muzzarella.</p>
+          <span class="pizza-tag">Sin tomate</span>
+        </div>
+      </div>
+
+      <div class="pizza-card rv d3">
+        <div class="pizza-fallback">🧀</div>
+        <div class="pizza-card-body">
+          <div class="pizza-card-header"><span class="pizza-name">4 Quesos</span><span class="pizza-price">$18.000</span></div>
+          <p class="pizza-desc">Queso azul, provolone, parmesano y muzzarella.</p>
+          <span class="pizza-tag">Favorita</span>
+        </div>
+      </div>
+
+      <div class="pizza-card rv d4">
+        <div class="pizza-fallback">🍯</div>
+        <div class="pizza-card-body">
+          <div class="pizza-card-header"><span class="pizza-name">Crunchy</span><span class="pizza-price">$20.000</span></div>
+          <p class="pizza-desc">Queso azul, parmesano, muzzarella, frutos secos y miel.</p>
+          <span class="pizza-tag">Especial</span>
+        </div>
+      </div>
+
+      <div class="pizza-card rv d5">
+        <div class="pizza-img-wrap"><img class="pizza-card-img" src="assets/images/photo-trecolori.jpg" alt="Rucola" onerror="this.parentElement.innerHTML='<div class=\'pizza-fallback\'>🌿</div>'"></div>
+        <div class="pizza-card-body">
+          <div class="pizza-card-header"><span class="pizza-name">Rucola</span><span class="pizza-price">$20.000</span></div>
+          <p class="pizza-desc">Salsa de tomate, muzzarella, rúcula, cherrys confitados y parmesano rallado. Opción con jamón crudo.</p>
+          <span class="pizza-tag">Premium</span>
+        </div>
+      </div>
+
+      <div class="pizza-card rv d6">
+        <div class="pizza-img-wrap"><img class="pizza-card-img" src="assets/images/photo-pepperoni-box.jpg" alt="Pepperoni" onerror="this.parentElement.innerHTML='<div class=\'pizza-fallback\'>🔥</div>'"></div>
+        <div class="pizza-card-body">
+          <div class="pizza-card-header"><span class="pizza-name">Pepperoni</span><span class="pizza-price">$19.000</span></div>
+          <p class="pizza-desc">Salsa de tomate, muzzarella, pepperoni ahumado. Opción con aceite picante.</p>
+          <span class="pizza-tag">🔥 Imperdible</span>
+        </div>
+      </div>
+
+      <div class="pizza-card rv d7">
+        <div class="pizza-img-wrap"><img class="pizza-card-img" src="assets/images/photo-aug2024.jpg" alt="Porcini" onerror="this.parentElement.innerHTML='<div class=\'pizza-fallback\'>🥓</div>'"></div>
+        <div class="pizza-card-body">
+          <div class="pizza-card-header"><span class="pizza-name">Porcini</span><span class="pizza-price">$20.000</span></div>
+          <p class="pizza-desc">Muzzarella, cebolla morada caramelizada, provolone y panceta ahumada.</p>
+          <span class="pizza-tag">Sin tomate</span>
+        </div>
+      </div>
+
+      <div class="pizza-card rv d8">
+        <div class="pizza-img-wrap"><img class="pizza-card-img" src="assets/images/photo-march2025.jpg" alt="Funghi" onerror="this.parentElement.innerHTML='<div class=\'pizza-fallback\'>🍄</div>'"></div>
+        <div class="pizza-card-body">
+          <div class="pizza-card-header"><span class="pizza-name">Funghi</span><span class="pizza-price">$20.000</span></div>
+          <p class="pizza-desc">Muzzarella, portobellos salteados, parmesano rayado y líneas de mantequilla de maní.</p>
+          <span class="pizza-tag">Única</span>
+        </div>
+      </div>
+
+      <div class="pizza-card rv d9">
+        <div class="pizza-img-wrap"><img class="pizza-card-img" src="assets/images/photo-pistacchiosa.jpg" alt="Pistacchiosa" onerror="this.parentElement.innerHTML='<div class=\'pizza-fallback\'>🌰</div>'"></div>
+        <div class="pizza-card-body">
+          <div class="pizza-card-header"><span class="pizza-name">Pistacchiosa</span><span class="pizza-price">$25.000</span></div>
+          <p class="pizza-desc">Muzzarella y provolone, cebolla morada, lluvia de pistachos.</p>
+          <span class="pizza-tag">⭐ Exclusiva</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 /* ══ BOOKING ══ */
 .booking-sec { background: var(--dark); padding: 110px 48px; }
 .booking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
