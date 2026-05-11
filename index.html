@@ -5,1202 +5,689 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Benny Fatto In Casa — Pizza Napolitana · Cañuelas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&family=Outfit:wght@300;400;500;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #080808; --dark: #0f0f0f; --dark2: #161616; --dark3: #1c1c1c;
+  --gold: #c8a96e; --gold2: #e2c98a; --gold-dim: rgba(200,169,110,0.12);
+  --white: #f2ece0; --white-dim: rgba(242,236,224,0.55); --white-faint: rgba(242,236,224,0.18);
+  --red-it: #c0392b; --green-it: #1a6b3a; --radius: 3px;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--white); font-family: 'Outfit', sans-serif; font-weight: 300; overflow-x: hidden; }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--gold); }
 
-  :root {
-    --black: #0a0a0a;
-    --dark: #111111;
-    --dark2: #1a1a1a;
-    --gold: #c9a84c;
-    --gold2: #e8c96a;
-    --red: #c0392b;
-    --green: #1a6b3a;
-    --white: #f5f0e8;
-    --gray: #888;
-    --cream: #fdf8f0;
-  }
+/* ══ NAV ══ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 22px 48px; display: flex; align-items: center; justify-content: space-between;
+  transition: all 0.4s;
+}
+nav.scrolled {
+  background: rgba(8,8,8,0.94); backdrop-filter: blur(20px);
+  padding: 13px 48px; border-bottom: 1px solid rgba(200,169,110,0.12);
+}
+.nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.nav-logo-wrap { width: 40px; height: 40px; perspective: 200px; flex-shrink: 0; }
+.nav-logo-inner {
+  width: 100%; height: 100%; position: relative;
+  transform-style: preserve-3d; animation: spin3d 8s linear infinite;
+}
+.logo-face {
+  position: absolute; inset: 0; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Dancing Script', cursive; font-size: 17px;
+  backface-visibility: hidden;
+}
+.logo-face-f {
+  background: radial-gradient(circle at 35% 35%, #e2c98a, #c8a96e, #8a6a30);
+  color: #080808;
+  box-shadow: inset -3px -3px 8px rgba(0,0,0,0.4), inset 2px 2px 5px rgba(255,255,255,0.3);
+}
+.logo-face-b {
+  background: radial-gradient(circle at 35% 35%, #c8a96e, #8a6a30, #5a420e);
+  color: rgba(242,236,224,0.85); transform: rotateY(180deg);
+}
+@keyframes spin3d { to { transform: rotateY(360deg); } }
+.nav-name { font-family: 'Dancing Script', cursive; font-size: 21px; color: var(--white); line-height: 1; }
+.nav-name small { display: block; font-family: 'Outfit', sans-serif; font-size: 8px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-top: 2px; }
+.nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+.nav-links a { color: var(--white-dim); text-decoration: none; font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; transition: color 0.3s; }
+.nav-links a:hover { color: var(--gold); }
+.nav-cta { background: var(--gold) !important; color: var(--black) !important; padding: 9px 20px; border-radius: var(--radius); font-weight: 600 !important; }
+.nav-cta:hover { background: var(--gold2) !important; }
+.burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; }
+.burger span { width: 24px; height: 1.5px; background: var(--white); display: block; transition: 0.3s; }
+.mobile-menu { display: none; position: fixed; inset: 0; background: rgba(8,8,8,0.98); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 30px; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { color: var(--white); text-decoration: none; font-family: 'Cormorant Garamond', serif; font-size: 26px; font-style: italic; transition: color 0.2s; }
+.mobile-menu a:hover { color: var(--gold); }
 
-  html { scroll-behavior: smooth; }
+/* ══ HERO ══ */
+.hero { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; background: linear-gradient(135deg, #100400 0%, #080808 50%, #090400 100%); }
+.hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.22; filter: saturate(1.4); }
+/* VIDEO — descomentá cuando tengas el archivo comprimido */
+/* .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.35; } */
+.hero-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 25%, rgba(8,8,8,0.85) 100%); }
 
-  body {
-    background: var(--black);
-    color: var(--white);
-    font-family: 'Inter', sans-serif;
-    font-weight: 300;
-    overflow-x: hidden;
-  }
+/* Embers */
+.ember { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: var(--gold); bottom: -5px; opacity: 0; filter: blur(0.5px); animation: emberAnim var(--dur) var(--delay) ease-in infinite; left: var(--x); }
+@keyframes emberAnim { 0%{opacity:0;transform:translateY(0) translateX(0)} 10%{opacity:.9} 80%{opacity:.5} 100%{opacity:0;transform:translateY(-75vh) translateX(var(--dx))} }
 
-  /* SCROLLBAR */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--black); }
-  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+.hero-content { position: relative; z-index: 2; text-align: center; padding: 0 24px; max-width: 900px; }
 
-  /* ─── NAV ─── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 1000;
-    padding: 18px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    transition: background 0.4s, backdrop-filter 0.4s, padding 0.3s;
-  }
-  nav.scrolled {
-    background: rgba(10,10,10,0.92);
-    backdrop-filter: blur(16px);
-    padding: 12px 40px;
-    border-bottom: 1px solid rgba(201,168,76,0.15);
-  }
-  .nav-logo {
-    font-family: 'Dancing Script', cursive;
-    font-size: 28px;
-    color: var(--white);
-    text-decoration: none;
-    letter-spacing: 1px;
-  }
-  .nav-logo span { color: var(--gold); }
-  .nav-links { display: flex; gap: 32px; list-style: none; }
-  .nav-links a {
-    color: rgba(245,240,232,0.7);
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    transition: color 0.3s;
-  }
-  .nav-links a:hover { color: var(--gold); }
-  .nav-cta {
-    background: var(--gold);
-    color: var(--black) !important;
-    padding: 9px 20px;
-    border-radius: 2px;
-    font-weight: 600 !important;
-    transition: background 0.3s !important;
-  }
-  .nav-cta:hover { background: var(--gold2) !important; color: var(--black) !important; }
+/* Big 3D logo in hero */
+.hero-logo-big { width: 130px; height: 130px; margin: 0 auto 30px; perspective: 600px; opacity: 0; animation: fadeUp 1s 0.1s forwards; }
+.hero-logo-big-inner { width: 100%; height: 100%; transform-style: preserve-3d; animation: spin3d 10s linear infinite; position: relative; }
+.hero-logo-face { position: absolute; inset: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; backface-visibility: hidden; }
+.hlf-front {
+  background: conic-gradient(from 30deg, #7a5c20, #e2c98a, #c8a96e, #7a5c20);
+  box-shadow: 0 0 50px rgba(200,169,110,0.5), inset -8px -8px 20px rgba(0,0,0,0.5), inset 4px 4px 12px rgba(255,255,255,0.2);
+}
+.hlf-back { background: conic-gradient(from 210deg, #7a5c20, #c8a96e, #e2c98a, #7a5c20); box-shadow: inset -8px -8px 20px rgba(0,0,0,0.7); transform: rotateY(180deg); }
+.hlf-text { font-family: 'Dancing Script', cursive; font-size: 54px; color: var(--black); text-shadow: 1px 1px 0 rgba(255,255,255,0.25), -1px -1px 0 rgba(0,0,0,0.3); user-select: none; }
 
-  /* Burger */
-  .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; }
-  .burger span { display: block; width: 24px; height: 2px; background: var(--white); transition: 0.3s; }
-  .mobile-menu {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(10,10,10,0.98);
-    z-index: 999;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 36px;
-  }
-  .mobile-menu.open { display: flex; }
-  .mobile-menu a {
-    color: var(--white);
-    text-decoration: none;
-    font-size: 22px;
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    transition: color 0.2s;
-  }
-  .mobile-menu a:hover { color: var(--gold); }
+.h-eyebrow { font-size: 10px; letter-spacing: 6px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; opacity: 0; animation: fadeUp 1s 0.25s forwards; }
+.h-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(50px, 9vw, 100px); font-weight: 300; font-style: italic; line-height: 0.95; margin-bottom: 6px; opacity: 0; animation: fadeUp 1s 0.4s forwards; }
+.h-title strong { font-style: normal; font-weight: 700; display: block; background: linear-gradient(135deg, var(--gold2), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.h-tag { font-size: 9px; letter-spacing: 6px; text-transform: uppercase; color: var(--white-dim); margin-bottom: 34px; opacity: 0; animation: fadeUp 1s 0.55s forwards; }
+.h-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; opacity: 0; animation: fadeUp 1s 0.7s forwards; }
+.btn-gold { background: var(--gold); color: var(--black); padding: 13px 32px; text-decoration: none; font-size: 11px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; border-radius: var(--radius); transition: background 0.3s, transform 0.2s; }
+.btn-gold:hover { background: var(--gold2); transform: translateY(-2px); }
+.btn-outline { border: 1px solid var(--white-faint); color: var(--white); padding: 13px 32px; text-decoration: none; font-size: 11px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase; border-radius: var(--radius); transition: all 0.3s; }
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+.hero-scroll { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0; animation: fadeUp 1s 1.1s forwards; }
+.hero-scroll span { font-size: 8px; letter-spacing: 4px; text-transform: uppercase; color: var(--white-faint); }
+.scroll-line { width: 1px; height: 45px; background: linear-gradient(to bottom, var(--gold), transparent); animation: sAnim 2s ease-in-out infinite; }
+@keyframes sAnim { 0%,100%{opacity:.3;transform:scaleY(.5)} 50%{opacity:1;transform:scaleY(1)} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:translateY(0)} }
 
-  /* ─── HERO ─── */
-  .hero {
-    height: 100vh;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
+/* ══ SECTIONS ══ */
+section { padding: 110px 48px; }
+.container { max-width: 1220px; margin: 0 auto; }
+.eyebrow { font-size: 9px; letter-spacing: 5px; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 12px; }
+.sec-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 5vw, 64px); font-weight: 300; line-height: 1.05; margin-bottom: 18px; }
+.sec-title em { font-style: italic; color: var(--gold); }
+.divider { width: 48px; height: 1px; background: var(--gold); margin-bottom: 40px; }
 
-  /* Video hero — placeholder with cinematic gradient until real video added */
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 60% 40%, rgba(192,57,43,0.25) 0%, transparent 60%),
-      radial-gradient(ellipse at 20% 80%, rgba(201,168,76,0.15) 0%, transparent 50%),
-      linear-gradient(160deg, #1a0a00 0%, #0a0a0a 50%, #0d0500 100%);
-  }
+/* ══ ABOUT ══ */
+.about { background: var(--dark); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: center; }
+.about-text p { color: var(--white-dim); line-height: 1.9; font-size: 14px; margin-bottom: 16px; }
+.quote-block { border-left: 2px solid var(--gold); padding: 18px 22px; margin: 28px 0; background: var(--gold-dim); border-radius: 0 2px 2px 0; }
+.quote-block p { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-style: italic; color: var(--gold2) !important; margin: 0 !important; line-height: 1.5; }
+.stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; margin-top: 38px; }
+.stat { background: var(--dark2); padding: 22px 18px; text-align: center; }
+.stat-n { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 600; color: var(--gold); display: block; line-height: 1; }
+.stat-l { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--white-faint); margin-top: 5px; display: block; }
+.about-visual { position: relative; }
+.about-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--radius); filter: brightness(0.88) saturate(1.2); display: block; }
+.about-img2 { position: absolute; bottom: -26px; left: -26px; width: 48%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); border: 4px solid var(--dark); filter: brightness(0.8); }
+.about-badge { position: absolute; top: 26px; right: -16px; background: var(--gold); color: var(--black); width: 88px; height: 88px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; text-align: center; line-height: 1.3; }
+.about-badge strong { font-family: 'Cormorant Garamond', serif; font-size: 22px; display: block; }
 
-  /* Big fiery circle — decorative */
-  .hero-fire-circle {
-    position: absolute;
-    right: -100px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(192,57,43,0.35) 0%, rgba(201,168,76,0.15) 40%, transparent 70%);
-    animation: pulse 4s ease-in-out infinite;
-  }
+/* ══ MENU ══ */
+.menu-sec { background: var(--black); }
+.menu-header { text-align: center; margin-bottom: 60px; }
+.menu-header .divider { margin: 0 auto; }
+.pizzas-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+.pizza-card { background: var(--dark2); border: 1px solid rgba(200,169,110,0.06); overflow: hidden; position: relative; transition: transform 0.4s, box-shadow 0.4s; }
+.pizza-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(200,169,110,0.2); z-index: 2; }
+.pizza-img-wrap { width: 100%; aspect-ratio: 4/3; overflow: hidden; position: relative; }
+.pizza-card-img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.85) saturate(1.2); transition: filter 0.5s, transform 0.6s; display: block; }
+.pizza-card:hover .pizza-card-img { filter: brightness(1) saturate(1.4); transform: scale(1.05); }
+.pizza-fallback { width: 100%; aspect-ratio: 4/3; background: radial-gradient(ellipse at center, #1e0d00, #080400); display: flex; align-items: center; justify-content: center; font-size: 44px; }
+.pizza-card-body { padding: 20px 22px 24px; }
+.pizza-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; gap: 8px; }
+.pizza-name { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 600; font-style: italic; }
+.pizza-price { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 600; color: var(--gold); white-space: nowrap; }
+.pizza-desc { font-size: 12.5px; color: var(--white-dim); line-height: 1.65; }
+.pizza-tag { display: inline-block; margin-top: 10px; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(200,169,110,0.22); padding: 3px 8px; border-radius: 2px; }
 
-  @keyframes pulse {
-    0%, 100% { transform: translateY(-50%) scale(1); opacity: 0.7; }
-    50% { transform: translateY(-50%) scale(1.08); opacity: 1; }
-  }
+/* ══ BOOKING ══ */
+.booking-sec { background: var(--dark); padding: 110px 48px; }
+.booking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.booking-info p { font-size: 14px; color: var(--white-dim); line-height: 1.85; margin-bottom: 22px; }
+.avail-strip { display: flex; gap: 8px; flex-wrap: wrap; margin: 20px 0 28px; }
+.abadge { padding: 6px 13px; border-radius: 2px; font-size: 10px; font-weight: 500; letter-spacing: 1px; }
+.a-few { background: rgba(192,57,43,0.16); color: #e57373; border: 1px solid rgba(192,57,43,0.28); }
+.a-ok { background: rgba(26,107,58,0.16); color: #66bb6a; border: 1px solid rgba(26,107,58,0.28); }
+.a-full { background: rgba(40,40,40,0.5); color: rgba(242,236,224,0.3); border: 1px solid rgba(255,255,255,0.06); text-decoration: line-through; }
+.ig-box { background: var(--gold-dim); border: 1px solid rgba(200,169,110,0.18); padding: 16px 18px; border-radius: 2px; margin-top: 24px; }
+.ig-box p { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 4px; }
+.ig-box a { color: var(--white-dim); font-size: 13px; text-decoration: none; }
+.ig-box a:hover { color: var(--gold); }
 
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding: 0 20px;
-    max-width: 800px;
-  }
+/* Calendar */
+.cal-widget { background: var(--dark2); border: 1px solid rgba(200,169,110,0.12); border-radius: var(--radius); overflow: hidden; }
+.cal-header { background: var(--gold); color: var(--black); padding: 15px 22px; display: flex; align-items: center; justify-content: space-between; }
+.cal-title { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 700; }
+.cal-nav { background: none; border: none; cursor: pointer; color: var(--black); font-size: 17px; font-weight: 700; padding: 3px 8px; border-radius: 2px; transition: background 0.2s; }
+.cal-nav:hover { background: rgba(0,0,0,0.12); }
+.cal-days-hdr { display: grid; grid-template-columns: repeat(7,1fr); background: var(--dark3); padding: 9px 0; }
+.cal-dn { text-align: center; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+.cal-grid-wrap { display: grid; grid-template-columns: repeat(7,1fr); gap: 2px; padding: 8px; }
+.cal-cell { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 2px; cursor: pointer; font-size: 13px; position: relative; transition: background 0.2s; }
+.cal-cell:hover:not(.c-empty):not(.c-past):not(.c-full) { background: rgba(200,169,110,0.15); }
+.c-empty { cursor: default; }
+.c-past { color: rgba(242,236,224,0.2); cursor: default; }
+.c-today { background: rgba(200,169,110,0.1); color: var(--gold); font-weight: 600; border: 1px solid rgba(200,169,110,0.3); }
+.c-selected { background: var(--gold) !important; color: var(--black) !important; font-weight: 700; }
+.c-few::after { content:''; position:absolute; bottom:3px; width:4px; height:4px; border-radius:50%; background:#e57373; }
+.c-ok::after { content:''; position:absolute; bottom:3px; width:4px; height:4px; border-radius:50%; background:#66bb6a; }
+.c-full { color: rgba(242,236,224,0.2); cursor: default; text-decoration: line-through; }
+.cal-legend { display: flex; gap: 18px; padding: 10px 18px; border-top: 1px solid rgba(200,169,110,0.08); flex-wrap: wrap; }
+.leg-item { display: flex; align-items: center; gap: 5px; font-size: 9px; color: var(--white-dim); }
+.leg-dot { width: 6px; height: 6px; border-radius: 50%; }
+.cal-form { padding: 18px 18px 22px; border-top: 1px solid rgba(200,169,110,0.08); }
+.cal-date-label { font-size: 13px; color: var(--gold); margin-bottom: 14px; font-weight: 500; min-height: 20px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 9px; }
+.fg { display: flex; flex-direction: column; gap: 4px; }
+.fg label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--white-faint); }
+.fg input, .fg select, .fg textarea { background: var(--dark3); border: 1px solid rgba(200,169,110,0.14); color: var(--white); padding: 9px 13px; border-radius: 2px; font-family: 'Outfit', sans-serif; font-size: 13px; outline: none; transition: border-color 0.3s; width: 100%; }
+.fg input:focus,.fg select:focus,.fg textarea:focus { border-color: var(--gold); }
+.fg select option { background: var(--dark3); }
+.fg textarea { resize: none; height: 55px; }
+.form-full { grid-column: 1/-1; }
+.btn-book { width: 100%; margin-top: 12px; background: var(--gold); color: var(--black); border: none; cursor: pointer; padding: 13px; border-radius: 2px; font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; transition: background 0.3s; }
+.btn-book:hover { background: var(--gold2); }
+.btn-book:disabled { opacity: 0.4; cursor: not-allowed; }
+.booking-success { text-align: center; padding: 28px 18px; display: none; }
+.booking-success .ck { font-size: 36px; margin-bottom: 10px; }
+.booking-success h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--gold); margin-bottom: 6px; }
+.booking-success p { font-size: 13px; color: var(--white-dim); }
 
-  .hero-eyebrow {
-    font-size: 11px;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 20px;
-    opacity: 0;
-    animation: fadeUp 1s 0.3s forwards;
-  }
+/* ══ GALLERY ══ */
+.gallery-sec { background: var(--black); padding: 110px 0; overflow: hidden; }
+.gallery-sec .container { padding: 0 48px; }
+.gal-strip { display: flex; gap: 3px; padding: 36px 48px 8px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.gal-strip::-webkit-scrollbar { display: none; }
+.gal-item { flex: 0 0 270px; height: 360px; overflow: hidden; position: relative; }
+.gal-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s, filter 0.4s; filter: brightness(0.8) saturate(1.1); display: block; }
+.gal-item:hover img { transform: scale(1.08); filter: brightness(1) saturate(1.4); }
+.gal-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 40px 16px 14px; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 17px; color: var(--white); opacity: 0; transform: translateY(4px); transition: all 0.4s; }
+.gal-item:hover .gal-label { opacity: 1; transform: translateY(0); }
 
-  .hero-title {
-    font-family: 'Dancing Script', cursive;
-    font-size: clamp(64px, 12vw, 130px);
-    color: var(--white);
-    line-height: 0.9;
-    margin-bottom: 8px;
-    opacity: 0;
-    animation: fadeUp 1s 0.5s forwards;
-  }
+/* ══ CONTACT ══ */
+.contact-sec { background: var(--dark); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+.contact-info p { font-size: 14px; color: var(--white-dim); line-height: 1.85; margin-bottom: 22px; }
+.ci-item { display: flex; gap: 14px; margin-bottom: 20px; align-items: flex-start; }
+.ci-icon { width: 36px; height: 36px; flex-shrink: 0; background: var(--gold-dim); border: 1px solid rgba(200,169,110,0.18); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+.ci-text span { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 2px; }
+.ci-text p { font-size: 13px; color: var(--white); margin: 0; }
+.ci-text a { color: var(--gold); text-decoration: none; }
+.socials { display: flex; gap: 9px; margin-top: 24px; }
+.soc-btn { width: 38px; height: 38px; border: 1px solid var(--white-faint); border-radius: 2px; display: flex; align-items: center; justify-content: center; color: var(--white-dim); text-decoration: none; font-size: 14px; transition: all 0.3s; }
+.soc-btn:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+.map-link { display: inline-flex; align-items: center; gap: 7px; margin-top: 18px; background: var(--gold); color: var(--black); padding: 11px 20px; border-radius: 2px; text-decoration: none; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; transition: background 0.3s; }
+.map-link:hover { background: var(--gold2); }
+.map-frame { min-height: 380px; border-radius: var(--radius); overflow: hidden; border: 1px solid rgba(200,169,110,0.12); }
+.map-frame iframe { width: 100%; height: 100%; min-height: 380px; border: none; filter: grayscale(15%) saturate(1.1); }
 
-  .hero-subtitle-tag {
-    font-family: 'Inter', sans-serif;
-    font-size: 10px;
-    letter-spacing: 8px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 24px;
-    opacity: 0;
-    animation: fadeUp 1s 0.65s forwards;
-  }
+/* ══ FOOTER ══ */
+footer { background: #040404; padding: 44px 48px; border-top: 1px solid rgba(200,169,110,0.08); }
+.foot-inner { max-width: 1220px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 18px; }
+.foot-brand { font-family: 'Dancing Script', cursive; font-size: 24px; color: var(--white); }
+.foot-brand span { color: var(--gold); }
+.foot-sub { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--white-faint); margin-top: 3px; }
+.foot-flag { display: flex; gap: 3px; margin-top: 8px; }
+.flag-b { width: 14px; height: 7px; border-radius: 1px; }
+.foot-copy { font-size: 11px; color: var(--white-faint); text-align: right; }
 
-  .hero-desc {
-    font-size: 16px;
-    color: rgba(245,240,232,0.65);
-    max-width: 480px;
-    margin: 0 auto 40px;
-    line-height: 1.7;
-    opacity: 0;
-    animation: fadeUp 1s 0.8s forwards;
-  }
+/* ══ REVEALS ══ */
+.rv,.rv-l,.rv-r { opacity:0; transition: opacity 0.8s ease, transform 0.8s ease; }
+.rv { transform: translateY(34px); } .rv-l { transform: translateX(-34px); } .rv-r { transform: translateX(34px); }
+.rv.in,.rv-l.in,.rv-r.in { opacity:1; transform:none; }
+.d1{transition-delay:.08s}.d2{transition-delay:.14s}.d3{transition-delay:.2s}.d4{transition-delay:.26s}
+.d5{transition-delay:.32s}.d6{transition-delay:.38s}.d7{transition-delay:.44s}.d8{transition-delay:.5s}.d9{transition-delay:.56s}
 
-  .hero-buttons {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeUp 1s 1s forwards;
-  }
-
-  .btn-primary {
-    background: var(--gold);
-    color: var(--black);
-    padding: 14px 32px;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    border-radius: 2px;
-    transition: background 0.3s, transform 0.2s;
-  }
-  .btn-primary:hover { background: var(--gold2); transform: translateY(-2px); }
-
-  .btn-secondary {
-    border: 1px solid rgba(245,240,232,0.3);
-    color: var(--white);
-    padding: 14px 32px;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    border-radius: 2px;
-    transition: border-color 0.3s, color 0.3s, transform 0.2s;
-  }
-  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
-
-  .hero-scroll-hint {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    opacity: 0;
-    animation: fadeUp 1s 1.4s forwards;
-  }
-  .hero-scroll-hint span {
-    font-size: 10px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: rgba(245,240,232,0.4);
-  }
-  .scroll-line {
-    width: 1px;
-    height: 50px;
-    background: linear-gradient(to bottom, rgba(201,168,76,0.6), transparent);
-    animation: scrollLine 2s ease-in-out infinite;
-  }
-  @keyframes scrollLine {
-    0% { transform: scaleY(0); transform-origin: top; }
-    50% { transform: scaleY(1); transform-origin: top; }
-    51% { transform: scaleY(1); transform-origin: bottom; }
-    100% { transform: scaleY(0); transform-origin: bottom; }
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ─── VIDEO HERO NOTE ─── */
-  .video-hero-note {
-    position: absolute;
-    bottom: 80px;
-    right: 30px;
-    font-size: 10px;
-    color: rgba(201,168,76,0.4);
-    letter-spacing: 1px;
-    writing-mode: vertical-rl;
-  }
-
-  /* ─── SECTIONS COMMON ─── */
-  section { padding: 100px 40px; }
-  .container { max-width: 1200px; margin: 0 auto; }
-
-  .section-eyebrow {
-    font-size: 10px;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 16px;
-    display: block;
-  }
-
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(36px, 5vw, 60px);
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 20px;
-  }
-
-  .section-divider {
-    width: 60px;
-    height: 2px;
-    background: var(--gold);
-    margin-bottom: 40px;
-  }
-
-  /* ─── ABOUT ─── */
-  .about { background: var(--dark); }
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-  .about-text p {
-    color: rgba(245,240,232,0.65);
-    line-height: 1.9;
-    margin-bottom: 20px;
-    font-size: 15px;
-  }
-  .about-text .quote {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 22px;
-    color: var(--gold);
-    line-height: 1.5;
-    border-left: 3px solid var(--gold);
-    padding-left: 24px;
-    margin: 32px 0;
-  }
-  .stats-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin-top: 40px;
-  }
-  .stat-item { text-align: center; }
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 48px;
-    font-weight: 700;
-    color: var(--gold);
-    display: block;
-    line-height: 1;
-  }
-  .stat-label {
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: rgba(245,240,232,0.5);
-    margin-top: 6px;
-    display: block;
-  }
-
-  /* About visual */
-  .about-visual {
-    position: relative;
-  }
-  .about-img-main {
-    width: 100%;
-    aspect-ratio: 4/5;
-    object-fit: cover;
-    border-radius: 2px;
-    filter: brightness(0.9) saturate(1.1);
-  }
-  .about-img-accent {
-    position: absolute;
-    bottom: -30px;
-    left: -30px;
-    width: 55%;
-    aspect-ratio: 1;
-    object-fit: cover;
-    border-radius: 2px;
-    border: 4px solid var(--dark);
-    filter: brightness(0.85);
-  }
-  .about-badge {
-    position: absolute;
-    top: 30px;
-    right: -20px;
-    background: var(--gold);
-    color: var(--black);
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-weight: 700;
-    font-size: 11px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    line-height: 1.3;
-  }
-  .about-badge strong { font-size: 22px; display: block; font-family: 'Playfair Display', serif; }
-
-  /* ─── MENU ─── */
-  .menu-section { background: var(--black); }
-  .menu-header { text-align: center; margin-bottom: 60px; }
-  .menu-header .section-divider { margin: 0 auto 0; }
-
-  .menu-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 2px;
-  }
-
-  .menu-item {
-    background: var(--dark2);
-    padding: 28px 32px;
-    border: 1px solid rgba(201,168,76,0.08);
-    transition: background 0.3s, border-color 0.3s, transform 0.3s;
-    cursor: default;
-    position: relative;
-    overflow: hidden;
-  }
-  .menu-item::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 3px;
-    background: var(--gold);
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition: transform 0.3s;
-  }
-  .menu-item:hover { background: #1e1e1e; border-color: rgba(201,168,76,0.25); transform: translateY(-2px); }
-  .menu-item:hover::before { transform: scaleY(1); }
-
-  .menu-item-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 8px;
-    gap: 12px;
-  }
-  .menu-item-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--white);
-    font-style: italic;
-  }
-  .menu-item-price {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--gold);
-    white-space: nowrap;
-    font-family: 'Playfair Display', serif;
-  }
-  .menu-item-desc {
-    font-size: 13px;
-    color: rgba(245,240,232,0.5);
-    line-height: 1.6;
-  }
-  .menu-item-tag {
-    display: inline-block;
-    margin-top: 10px;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: rgba(201,168,76,0.6);
-    border: 1px solid rgba(201,168,76,0.2);
-    padding: 3px 8px;
-    border-radius: 2px;
-  }
-
-  .menu-note {
-    text-align: center;
-    margin-top: 50px;
-    font-size: 13px;
-    color: rgba(245,240,232,0.4);
-    font-style: italic;
-  }
-  .menu-note span { color: var(--gold); }
-
-  /* ─── GALLERY ─── */
-  .gallery-section {
-    background: var(--dark);
-    padding: 100px 0;
-    overflow: hidden;
-  }
-  .gallery-section .container { padding: 0 40px; }
-  .gallery-header { margin-bottom: 50px; }
-
-  .gallery-strip {
-    display: flex;
-    gap: 3px;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    padding: 0 40px;
-  }
-  .gallery-strip::-webkit-scrollbar { display: none; }
-
-  .gallery-item {
-    flex: 0 0 300px;
-    height: 400px;
-    overflow: hidden;
-    border-radius: 2px;
-    position: relative;
-  }
-  .gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease, filter 0.4s;
-    filter: brightness(0.85) saturate(1.1);
-  }
-  .gallery-item:hover img { transform: scale(1.08); filter: brightness(1) saturate(1.3); }
-  .gallery-item-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%);
-    opacity: 0;
-    transition: opacity 0.4s;
-    display: flex;
-    align-items: flex-end;
-    padding: 20px;
-  }
-  .gallery-item:hover .gallery-item-overlay { opacity: 1; }
-  .gallery-item-label {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 16px;
-    color: var(--white);
-  }
-
-  /* ─── PROCESO ─── */
-  .proceso { background: var(--black); }
-  .proceso-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2px;
-    margin-top: 60px;
-  }
-  .proceso-step {
-    padding: 40px 28px;
-    background: var(--dark2);
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    border: 1px solid rgba(201,168,76,0.06);
-  }
-  .proceso-step::after {
-    content: attr(data-num);
-    position: absolute;
-    bottom: -10px;
-    right: 10px;
-    font-family: 'Playfair Display', serif;
-    font-size: 80px;
-    font-weight: 900;
-    color: rgba(201,168,76,0.05);
-    line-height: 1;
-    pointer-events: none;
-  }
-  .proceso-icon {
-    font-size: 36px;
-    margin-bottom: 20px;
-  }
-  .proceso-step h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    margin-bottom: 12px;
-    color: var(--gold);
-  }
-  .proceso-step p {
-    font-size: 13px;
-    color: rgba(245,240,232,0.5);
-    line-height: 1.7;
-  }
-
-  /* ─── CONTACTO ─── */
-  .contact-section { background: var(--dark); }
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: start;
-  }
-  .contact-info p {
-    font-size: 14px;
-    color: rgba(245,240,232,0.6);
-    line-height: 1.8;
-    margin-bottom: 32px;
-  }
-  .contact-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-  .contact-item-icon {
-    width: 40px;
-    height: 40px;
-    background: rgba(201,168,76,0.1);
-    border: 1px solid rgba(201,168,76,0.2);
-    border-radius: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    flex-shrink: 0;
-  }
-  .contact-item-text span {
-    display: block;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 4px;
-  }
-  .contact-item-text p { font-size: 14px; color: var(--white); margin: 0; }
-
-  .contact-map {
-    width: 100%;
-    height: 400px;
-    border-radius: 2px;
-    overflow: hidden;
-    border: 1px solid rgba(201,168,76,0.15);
-    position: relative;
-  }
-  .contact-map iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    filter: grayscale(30%) saturate(1.1);
-  }
-
-  .social-links {
-    display: flex;
-    gap: 12px;
-    margin-top: 32px;
-  }
-  .social-link {
-    width: 42px;
-    height: 42px;
-    border: 1px solid rgba(245,240,232,0.15);
-    border-radius: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(245,240,232,0.6);
-    text-decoration: none;
-    font-size: 16px;
-    transition: border-color 0.3s, color 0.3s, background 0.3s;
-  }
-  .social-link:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.08); }
-
-  .map-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 20px;
-    background: var(--gold);
-    color: var(--black);
-    padding: 12px 24px;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    border-radius: 2px;
-    transition: background 0.3s;
-  }
-  .map-btn:hover { background: var(--gold2); }
-
-  /* ─── FOOTER ─── */
-  footer {
-    background: #050505;
-    padding: 50px 40px;
-    border-top: 1px solid rgba(201,168,76,0.1);
-  }
-  .footer-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  .footer-logo {
-    font-family: 'Dancing Script', cursive;
-    font-size: 28px;
-    color: var(--white);
-  }
-  .footer-logo span { color: var(--gold); }
-  .footer-tagline {
-    font-size: 11px;
-    color: rgba(245,240,232,0.3);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-top: 4px;
-  }
-  .footer-copy {
-    font-size: 12px;
-    color: rgba(245,240,232,0.25);
-    text-align: right;
-  }
-  .footer-copy a { color: var(--gold); text-decoration: none; }
-
-  /* ─── ITALIAN FLAG ACCENT ─── */
-  .flag-accent {
-    display: inline-flex;
-    gap: 4px;
-    margin-bottom: 16px;
-  }
-  .flag-segment {
-    width: 6px;
-    height: 24px;
-    border-radius: 1px;
-  }
-
-  /* ─── ANIMATIONS ─── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-  .reveal-left {
-    opacity: 0;
-    transform: translateX(-40px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal-left.visible { opacity: 1; transform: translateX(0); }
-  .reveal-right {
-    opacity: 0;
-    transform: translateX(40px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal-right.visible { opacity: 1; transform: translateX(0); }
-
-  .stagger-1 { transition-delay: 0.1s; }
-  .stagger-2 { transition-delay: 0.2s; }
-  .stagger-3 { transition-delay: 0.3s; }
-  .stagger-4 { transition-delay: 0.4s; }
-  .stagger-5 { transition-delay: 0.5s; }
-  .stagger-6 { transition-delay: 0.6s; }
-  .stagger-7 { transition-delay: 0.7s; }
-  .stagger-8 { transition-delay: 0.8s; }
-
-  /* ─── RESPONSIVE ─── */
-  @media (max-width: 900px) {
-    nav { padding: 16px 24px; }
-    nav.scrolled { padding: 10px 24px; }
-    .nav-links { display: none; }
-    .burger { display: flex; }
-    section { padding: 70px 24px; }
-    .about-grid { grid-template-columns: 1fr; gap: 50px; }
-    .about-img-accent { display: none; }
-    .about-badge { display: none; }
-    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-    .proceso-grid { grid-template-columns: 1fr 1fr; }
-    .footer-inner { flex-direction: column; text-align: center; }
-    .footer-copy { text-align: center; }
-    .gallery-item { flex: 0 0 240px; height: 300px; }
-  }
-
-  @media (max-width: 600px) {
-    .menu-grid { grid-template-columns: 1fr; }
-    .proceso-grid { grid-template-columns: 1fr; }
-    .stats-grid { grid-template-columns: 1fr 1fr; }
-  }
+/* ══ RESPONSIVE ══ */
+@media(max-width:1024px){ .pizzas-grid{grid-template-columns:repeat(2,1fr)} .booking-grid{grid-template-columns:1fr} .about-grid{grid-template-columns:1fr} .contact-grid{grid-template-columns:1fr} .about-img2,.about-badge{display:none} }
+@media(max-width:768px){ nav{padding:14px 22px} nav.scrolled{padding:10px 22px} .nav-links{display:none} .burger{display:flex} section{padding:70px 22px} .booking-sec{padding:70px 22px} .gal-item{flex:0 0 220px;height:280px} .form-row{grid-template-columns:1fr} }
+@media(max-width:580px){ .pizzas-grid{grid-template-columns:1fr} .stats{grid-template-columns:1fr 1fr 1fr} .foot-inner{flex-direction:column;text-align:center} .foot-copy{text-align:center} }
 </style>
 </head>
 <body>
 
-<!-- ─── NAV ─── -->
+<!-- NAV -->
 <nav id="nav">
-  <a href="#" class="nav-logo">Benny <span>·</span> Fatto In Casa</a>
+  <a href="#" class="nav-brand">
+    <div class="nav-logo-wrap">
+      <div class="nav-logo-inner">
+        <div class="logo-face logo-face-f">B</div>
+        <div class="logo-face logo-face-b">B</div>
+      </div>
+    </div>
+    <div class="nav-name">Benny <small>Fatto In Casa</small></div>
+  </a>
   <ul class="nav-links">
     <li><a href="#nosotros">Nosotros</a></li>
     <li><a href="#menu">Carta</a></li>
+    <li><a href="#reservas">Reservas</a></li>
     <li><a href="#galeria">Galería</a></li>
     <li><a href="#contacto">Contacto</a></li>
-    <li><a href="https://maps.app.goo.gl/PgzZLP3Mks7gBBnC7" target="_blank" class="nav-cta">¿Cómo llegar?</a></li>
+    <li><a href="#reservas" class="nav-cta">Reservar</a></li>
   </ul>
-  <div class="burger" id="burger">
-    <span></span><span></span><span></span>
-  </div>
+  <div class="burger" id="burger"><span></span><span></span><span></span></div>
 </nav>
-
-<!-- Mobile Menu -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#nosotros" onclick="closeMobile()">Nosotros</a>
-  <a href="#menu" onclick="closeMobile()">Carta</a>
-  <a href="#galeria" onclick="closeMobile()">Galería</a>
-  <a href="#contacto" onclick="closeMobile()">Contacto</a>
-  <a href="https://maps.app.goo.gl/PgzZLP3Mks7gBBnC7" target="_blank" style="color:var(--gold)">¿Cómo llegar? →</a>
+<div class="mobile-menu" id="mob">
+  <a href="#nosotros" onclick="cm()">Nosotros</a>
+  <a href="#menu" onclick="cm()">Carta</a>
+  <a href="#reservas" onclick="cm()">Reservas</a>
+  <a href="#galeria" onclick="cm()">Galería</a>
+  <a href="#contacto" onclick="cm()">Contacto</a>
 </div>
 
-<!-- ─── HERO ─── -->
+<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
-  <div class="hero-fire-circle"></div>
+  <!-- VIDEO: descomentá estas 3 líneas cuando tengas benny-hero.mp4 en assets/videos/ -->
+  <!--
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="assets/videos/benny-hero.mp4" type="video/mp4">
+  </video>
+  -->
+  <img class="hero-img" src="assets/images/photo-horno2.jpg" alt="Benny pizza" onerror="this.style.display='none'">
+  <div class="hero-vignette"></div>
 
-  <!-- VIDEO PLACEHOLDER — Reemplazar src con tu video real -->
-  <!-- <video id="heroVideo" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.35;">
-    <source src="assets/benny-hero.mp4" type="video/mp4">
-  </video> -->
-
-  <!-- Imagen hero de respaldo (pizza en horno) -->
-  <img
-    src="/mnt/user-data/uploads/Photo_by_Benny_Fatto_In_Casa_in_Ciudad_de_Cauelas__2_.jpg"
-    alt="Pizza napolitana Benny"
-    style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.28;"
-    onerror="this.style.display='none'"
-  >
+  <!-- Embers -->
+  <div class="ember" style="--x:12%;--dur:7s;--delay:0s;--dx:18px"></div>
+  <div class="ember" style="--x:25%;--dur:5.5s;--delay:1.8s;--dx:-14px"></div>
+  <div class="ember" style="--x:42%;--dur:8s;--delay:0.7s;--dx:22px"></div>
+  <div class="ember" style="--x:58%;--dur:6s;--delay:2.2s;--dx:-18px"></div>
+  <div class="ember" style="--x:72%;--dur:7.5s;--delay:0.4s;--dx:12px"></div>
+  <div class="ember" style="--x:87%;--dur:5s;--delay:1.3s;--dx:-25px"></div>
 
   <div class="hero-content">
-    <p class="hero-eyebrow">Pizza Napolitana · Cañuelas · Buenos Aires</p>
-    <h1 class="hero-title">Benny</h1>
-    <p class="hero-subtitle-tag">Fatto In Casa</p>
-    <p class="hero-desc">
-      Masa de larga fermentación, ingredientes de primera y el calor honesto del horno de leña. Cada pizza, una obra.
-    </p>
-    <div class="hero-buttons">
-      <a href="#menu" class="btn-primary">Ver la carta</a>
-      <a href="https://maps.app.goo.gl/PgzZLP3Mks7gBBnC7" target="_blank" class="btn-secondary">Cómo llegar →</a>
+    <div class="hero-logo-big">
+      <div class="hero-logo-big-inner">
+        <div class="hero-logo-face hlf-front"><span class="hlf-text">B</span></div>
+        <div class="hero-logo-face hlf-back"><span class="hlf-text" style="color:rgba(242,236,224,0.9)">B</span></div>
+      </div>
+    </div>
+    <p class="h-eyebrow">Pizza Napolitana · Cañuelas · Buenos Aires</p>
+    <h1 class="h-title"><em>Fatto</em><strong>In Casa</strong></h1>
+    <p class="h-tag">Masa madre · Horno de leña · Ingredientes de primera</p>
+    <div class="h-btns">
+      <a href="#menu" class="btn-gold">Ver la carta</a>
+      <a href="#reservas" class="btn-outline">Reservar lugar →</a>
     </div>
   </div>
-
-  <div class="hero-scroll-hint">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
-  </div>
-
-  <div class="video-hero-note">📹 Agrega tu video aquí</div>
+  <div class="hero-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
 </section>
 
-<!-- ─── ABOUT ─── -->
+<!-- NOSOTROS -->
 <section class="about" id="nosotros">
   <div class="container">
     <div class="about-grid">
-      <div class="about-text reveal-left">
-        <div class="flag-accent">
-          <div class="flag-segment" style="background:#1a6b3a"></div>
-          <div class="flag-segment" style="background:#f5f0e8"></div>
-          <div class="flag-segment" style="background:#c0392b"></div>
-        </div>
-        <span class="section-eyebrow">Nuestra historia</span>
-        <h2 class="section-title">Hecho con amor,<br><em>desde casa</em></h2>
-        <div class="section-divider"></div>
-        <p>Benny Fatto In Casa nació del amor genuino por la pizza napolitana. No hay atajos: masa madre, fermentación larga, mozzarella que se estira, tomates que saben a tomate.</p>
-        <p>Cada pizza sale del horno de leña de Cañuelas con el mismo cuidado con el que nacen las pizzas de Nápoles. Ingredientes honestos, técnica real, sabor que te lleva lejos.</p>
-        <blockquote class="quote">
-          "La pizza perfecta no se apura.<br>Se espera, se respeta, se disfruta."
-        </blockquote>
-
-        <div class="stats-grid">
-          <div class="stat-item reveal stagger-1">
-            <span class="stat-num counter" data-target="48">0</span>
-            <span class="stat-label">Horas de fermentación</span>
-          </div>
-          <div class="stat-item reveal stagger-2">
-            <span class="stat-num counter" data-target="8">0</span>
-            <span class="stat-label">Pizzas en la carta</span>
-          </div>
-          <div class="stat-item reveal stagger-3">
-            <span class="stat-num">🔥</span>
-            <span class="stat-label">Horno de leña</span>
-          </div>
-          <div class="stat-item reveal stagger-4">
-            <span class="stat-num">100%</span>
-            <span class="stat-label">Fatto in casa</span>
-          </div>
+      <div class="rv-l">
+        <span class="eyebrow">Nuestra historia</span>
+        <h2 class="sec-title">Hecho con amor,<br><em>desde casa</em></h2>
+        <div class="divider"></div>
+        <p>Benny Fatto In Casa nació del amor genuino por la pizza napolitana. Sin atajos: masa madre, fermentación larga de 48 horas, muzzarella que se estira, tomates que saben a tomate.</p>
+        <p>Somos un lugar pequeño en Cañuelas. Cada noche hay cupos limitados — porque cada pizza merece atención. Reservá con tiempo.</p>
+        <div class="quote-block"><p>"La pizza perfecta no se apura.<br>Se espera, se respeta, se disfruta."</p></div>
+        <div class="stats">
+          <div class="stat rv d2"><span class="stat-n counter" data-target="48">0</span><span class="stat-l">Horas masa</span></div>
+          <div class="stat rv d3"><span class="stat-n counter" data-target="450">0</span><span class="stat-l">°C horno</span></div>
+          <div class="stat rv d4"><span class="stat-n">🔥</span><span class="stat-l">Leña</span></div>
         </div>
       </div>
-
-      <div class="about-visual reveal-right">
-        <img
-          class="about-img-main"
-          src="/mnt/user-data/uploads/Photo_by_Benny_Fatto_In_Casa_in_Ciudad_de_Cauelas__1_.jpg"
-          alt="Pizza napolitana en horno de leña"
-          onerror="this.style.background='#1a1a1a';this.alt=''"
-        >
-        <img
-          class="about-img-accent"
-          src="/mnt/user-data/uploads/Photo_by_Benny_Fatto_In_Casa_in_Ciudad_de_Cauelas.jpg"
-          alt="Detalle pizza"
-          onerror="this.style.background='#111';this.alt=''"
-        >
-        <div class="about-badge">
-          <strong>🍕</strong>
-          Napolitana<br>Auténtica
-        </div>
+      <div class="rv-r about-visual">
+        <img class="about-img" src="assets/images/photo-horno1.jpg" alt="Horno Benny" onerror="this.style.background='#1a1a1a'">
+        <img class="about-img2" src="assets/images/photo-pepperoni-box.jpg" alt="Pizza" onerror="this.style.display='none'">
+        <div class="about-badge"><strong>🍕</strong>Napolitana<br>Real</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── MENU ─── -->
-<section class="menu-section" id="menu">
+<!-- MENU -->
+<section class="menu-sec" id="menu">
   <div class="container">
-    <div class="menu-header reveal">
-      <span class="section-eyebrow">Nuestra carta</span>
-      <h2 class="section-title">Pizzas Napolitanas</h2>
-      <div class="section-divider"></div>
-      <p style="color:rgba(245,240,232,0.5);font-size:14px;margin-top:16px;">Todas sobre masa de larga fermentación, horneadas en horno de leña.</p>
+    <div class="menu-header rv">
+      <span class="eyebrow">Nuestra carta</span>
+      <h2 class="sec-title">Pizzas <em>Napolitanas</em></h2>
+      <div class="divider"></div>
+      <p style="color:var(--white-dim);font-size:13px;margin-top:-24px">Masa de larga fermentación · Horno de leña · Ingredientes seleccionados</p>
     </div>
+    <div class="pizzas-grid">
 
-    <div class="menu-grid">
-      <div class="menu-item reveal stagger-1">
-        <div class="menu-item-header">
-          <span class="menu-item-name">Margherita</span>
-          <span class="menu-item-price">$17.000</span>
+      <div class="pizza-card rv d1">
+        <div class="pizza-img-wrap"><img class="pizza-card-img" src="assets/images/photo-margherita.jpg" alt="Margherita" onerror="this.parentElement.innerHTML='<div class=\'pizza-fallback\'>🍕</div>'"></div>
+        <div class="pizza-card-body">
+          <div class="pizza-card-header"><span class="pizza-name">Margherita</span><span class="pizza-price">$17.000</span></div>
+          <p class="pizza-desc">Salsa de tomate, muzzarella y albahaca fresca.</p>
+          <span class="pizza-tag">Clásica</span>
         </div>
-        <p class="menu-item-desc">Salsa de tomate, muzzarella y albahaca fresca.</p>
-        <span class="menu-item-tag">Clásica</span>
       </div>
 
-      <div class="menu-item reveal stagger-2">
-        <div class="menu-item-header">
-          <span class="menu-item-name">Fugazza</span>
-          <span class="menu-item-price">$17.000</span>
+      <div class="pizza-card rv d2">
+        <div class="pizza-fallback">🧅</div>
+        <div class="pizza-card-body">
+          <div class="pizza-card-header"><span class="pizza-name">Fugazza</span><span class="pizza-price">$17.000</span></div>
+          <p class="pizza-desc">Base de cebolla marinada y muzzarella.</p>
+          <span class="pizza-tag">Sin tomate</span>
         </div>
-        <p class="menu-item-desc">Base de cebolla marinada y muzzarella.</p>
-        <span class="menu-item-tag">Sin tomate</span>
       </div>
 
-      <div class="menu-item reveal stagger-3">
-        <div class="menu-item-header">
-          <span class="menu-item-name">4 Quesos</span>
-          <span class="menu-item-price">$18.000</span>
+      <div class="pizza-card rv d3">
+        <div class="pizza-fallback">🧀</div>
+        <div class="pizza-card-body">
+          <div class="pizza-card-header"><span class="pizza-name">4 Quesos</span><span class="pizza-price">$18.000</span></div>
+          <p class="pizza-desc">Queso azul, provolone, parmesano y muzzarella.</p>
+          <span class="pizza-tag">Favorita</span>
         </div>
-        <p class="menu-item-desc">Queso azul, provolone, parmesano y muzzarella.</p>
-        <span class="menu-item-tag">Favorita</span>
       </div>
 
-      <div class="menu-item reveal stagger-4">
-        <div class="menu-item-header">
-          <span class="menu-item-name">Crunchy</span>
-          <span class="menu-item-price">$20.000</span>
+      <div class="pizza-card rv d4">
+        <div class="pizza-fallback">🍯</div>
+        <div class="pizza-card-body">
+          <div class="pizza-card-header"><span class="pizza-name">Crunchy</span><span class="pizza-price">$20.000</span></div>
+          <p class="pizza-desc">Queso azul, parmesano, muzzarella, frutos secos y miel.</p>
+          <span class="pizza-tag">Especial</span>
         </div>
-        <p class="menu-item-desc">Queso azul, parmesano, muzzarella, frutos secos y miel.</p>
-        <span class="menu-item-tag">Especial</span>
       </div>
 
-      <div class="menu-item reveal stagger-5">
-        <div class="menu-item-header">
-          <span class="menu-item-name">Rucola</span>
-          <span class="menu-item-price">$20.000</span>
+      <div class="pizza-card rv d5">
+        <div class="pizza-img-wrap"><img class="pizza-card-img" src="assets/images/photo-trecolori.jpg" alt="Rucola" onerror="this.parentElement.innerHTML='<div class=\'pizza-fallback\'>🌿</div>'"></div>
+        <div class="pizza-card-body">
+          <div class="pizza-card-header"><span class="pizza-name">Rucola</span><span class="pizza-price">$20.000</span></div>
+          <p class="pizza-desc">Salsa de tomate, muzzarella, rúcula, cherrys confitados y parmesano rallado. Opción con jamón crudo.</p>
+          <span class="pizza-tag">Premium</span>
         </div>
-        <p class="menu-item-desc">Salsa de tomate, muzzarella, rúcula, cherrys confitados y parmesano rallado. Opción con jamón crudo.</p>
-        <span class="menu-item-tag">Premium</span>
       </div>
 
-      <div class="menu-item reveal stagger-6">
-        <div class="menu-item-header">
-          <span class="menu-item-name">Pepperoni</span>
-          <span class="menu-item-price">$19.000</span>
+      <div class="pizza-card rv d6">
+        <div class="pizza-img-wrap"><img class="pizza-card-img" src="assets/images/photo-pepperoni-box.jpg" alt="Pepperoni" onerror="this.parentElement.innerHTML='<div class=\'pizza-fallback\'>🔥</div>'"></div>
+        <div class="pizza-card-body">
+          <div class="pizza-card-header"><span class="pizza-name">Pepperoni</span><span class="pizza-price">$19.000</span></div>
+          <p class="pizza-desc">Salsa de tomate, muzzarella, pepperoni ahumado. Opción con aceite picante.</p>
+          <span class="pizza-tag">🔥 Imperdible</span>
         </div>
-        <p class="menu-item-desc">Salsa de tomate, muzzarella, pepperoni ahumado. Opción con aceite picante.</p>
-        <span class="menu-item-tag">🔥 Imperdible</span>
       </div>
 
-      <div class="menu-item reveal stagger-7">
-        <div class="menu-item-header">
-          <span class="menu-item-name">Porcini</span>
-          <span class="menu-item-price">$20.000</span>
+      <div class="pizza-card rv d7">
+        <div class="pizza-img-wrap"><img class="pizza-card-img" src="assets/images/photo-aug2024.jpg" alt="Porcini" onerror="this.parentElement.innerHTML='<div class=\'pizza-fallback\'>🥓</div>'"></div>
+        <div class="pizza-card-body">
+          <div class="pizza-card-header"><span class="pizza-name">Porcini</span><span class="pizza-price">$20.000</span></div>
+          <p class="pizza-desc">Muzzarella, cebolla morada caramelizada, provolone y panceta ahumada.</p>
+          <span class="pizza-tag">Sin tomate</span>
         </div>
-        <p class="menu-item-desc">Muzzarella, cebolla morada caramelizada, provolone y panceta ahumada.</p>
-        <span class="menu-item-tag">Sin tomate</span>
       </div>
 
-      <div class="menu-item reveal stagger-8">
-        <div class="menu-item-header">
-          <span class="menu-item-name">Funghi</span>
-          <span class="menu-item-price">$20.000</span>
+      <div class="pizza-card rv d8">
+        <div class="pizza-img-wrap"><img class="pizza-card-img" src="assets/images/photo-march2025.jpg" alt="Funghi" onerror="this.parentElement.innerHTML='<div class=\'pizza-fallback\'>🍄</div>'"></div>
+        <div class="pizza-card-body">
+          <div class="pizza-card-header"><span class="pizza-name">Funghi</span><span class="pizza-price">$20.000</span></div>
+          <p class="pizza-desc">Muzzarella, portobellos salteados, parmesano rayado y líneas de mantequilla de maní.</p>
+          <span class="pizza-tag">Única</span>
         </div>
-        <p class="menu-item-desc">Muzzarella, portobellos salteados, parmesano rayado y líneas de mantequilla de maní.</p>
-        <span class="menu-item-tag">Única</span>
       </div>
+
+      <div class="pizza-card rv d9">
+        <div class="pizza-img-wrap"><img class="pizza-card-img" src="assets/images/photo-pistacchiosa.jpg" alt="Pistacchiosa" onerror="this.parentElement.innerHTML='<div class=\'pizza-fallback\'>🌰</div>'"></div>
+        <div class="pizza-card-body">
+          <div class="pizza-card-header"><span class="pizza-name">Pistacchiosa</span><span class="pizza-price">$25.000</span></div>
+          <p class="pizza-desc">Muzzarella y provolone, cebolla morada, lluvia de pistachos.</p>
+          <span class="pizza-tag">⭐ Exclusiva</span>
+        </div>
+      </div>
+
     </div>
-
-    <p class="menu-note reveal">Masa de larga fermentación · Horno de leña · Ingredientes seleccionados<br><span>Preguntá por las especialidades del día 🍕</span></p>
   </div>
 </section>
 
-<!-- ─── GALLERY ─── -->
-<section class="gallery-section" id="galeria">
+<!-- RESERVAS -->
+<section class="booking-sec" id="reservas">
   <div class="container">
-    <div class="gallery-header reveal">
-      <span class="section-eyebrow">Galería</span>
-      <h2 class="section-title">Del fuego<br><em>a tu mesa</em></h2>
-      <div class="section-divider"></div>
-    </div>
-  </div>
-  <div class="gallery-strip">
-    <div class="gallery-item reveal stagger-1">
-      <img src="/mnt/user-data/uploads/Photo_by_Benny_Fatto_In_Casa_in_Ciudad_de_Cauelas__2_.jpg" alt="Pizza en horno">
-      <div class="gallery-item-overlay"><span class="gallery-item-label">Al rojo vivo</span></div>
-    </div>
-    <div class="gallery-item reveal stagger-2">
-      <img src="/mnt/user-data/uploads/Photo_by_Benny_Fatto_In_Casa_in_Ciudad_de_Cauelas__1_.jpg" alt="Pizza napolitana">
-      <div class="gallery-item-overlay"><span class="gallery-item-label">Tre colori</span></div>
-    </div>
-    <div class="gallery-item reveal stagger-3">
-      <img src="/mnt/user-data/uploads/Photo_by_Benny_Fatto_In_Casa_in_Ciudad_de_Cauelas.jpg" alt="Pizza pepperoni">
-      <div class="gallery-item-overlay"><span class="gallery-item-label">Pepperoni</span></div>
-    </div>
-    <div class="gallery-item reveal stagger-4">
-      <img src="/mnt/user-data/uploads/Photo_by_Benny_Fatto_In_Casa_on_April_12_2025.jpg" alt="Margherita">
-      <div class="gallery-item-overlay"><span class="gallery-item-label">Margherita</span></div>
-    </div>
-    <div class="gallery-item reveal stagger-5">
-      <img src="/mnt/user-data/uploads/Photo_by_Benny_Fatto_In_Casa_on_August_24_2024.jpg" alt="Horno de leña">
-      <div class="gallery-item-overlay"><span class="gallery-item-label">Horno de leña</span></div>
-    </div>
-    <div class="gallery-item reveal stagger-6">
-      <img src="/mnt/user-data/uploads/Photo_by_Benny_Fatto_In_Casa_on_December_14_2024.jpg" alt="Pizza horneada">
-      <div class="gallery-item-overlay"><span class="gallery-item-label">Recién horneada</span></div>
-    </div>
-    <div class="gallery-item reveal stagger-7">
-      <img src="/mnt/user-data/uploads/_Nuestra_tre_colori_una_de_las_destacadas_de_nuest.jpg" alt="Tre colori">
-      <div class="gallery-item-overlay"><span class="gallery-item-label">Tre Colori</span></div>
-    </div>
-    <div class="gallery-item reveal stagger-8">
-      <img src="/mnt/user-data/uploads/Photo_by_Benny_Fatto_In_Casa_on_February_06_2026.jpg" alt="Pizza especial">
-      <div class="gallery-item-overlay"><span class="gallery-item-label">Especial del día</span></div>
+    <div class="booking-grid">
+      <div class="rv-l">
+        <span class="eyebrow">Reservas</span>
+        <h2 class="sec-title">Guardá<br>tu <em>lugar</em></h2>
+        <div class="divider"></div>
+        <p>Somos un lugar pequeño y nos llenamos rápido. Si querés disfrutar una noche con nosotros, reservá tu lugar con tiempo — cada cupo es una pizza con toda la atención que merece.</p>
+        <div>
+          <p style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:500">Disponibilidad esta semana</p>
+          <div class="avail-strip">
+            <span class="abadge a-full">Lun — Cerrado</span>
+            <span class="abadge a-few">Mié — Últimos</span>
+            <span class="abadge a-ok">Jue — Disponible</span>
+            <span class="abadge a-few">Vie — Casi lleno</span>
+            <span class="abadge a-full">Sáb — Completo</span>
+            <span class="abadge a-ok">Dom — Disponible</span>
+          </div>
+        </div>
+        <div class="ig-box">
+          <p>💬 También podés reservar por Instagram</p>
+          <a href="https://www.instagram.com/benny_pizza" target="_blank">@benny_pizza →</a>
+        </div>
+      </div>
+
+      <div class="rv-r">
+        <div class="cal-widget">
+          <div class="cal-header">
+            <button class="cal-nav" id="prevM">‹</button>
+            <span class="cal-title" id="calTitle">Mayo 2026</span>
+            <button class="cal-nav" id="nextM">›</button>
+          </div>
+          <div class="cal-days-hdr">
+            <div class="cal-dn">Do</div><div class="cal-dn">Lu</div><div class="cal-dn">Ma</div>
+            <div class="cal-dn">Mi</div><div class="cal-dn">Ju</div><div class="cal-dn">Vi</div><div class="cal-dn">Sá</div>
+          </div>
+          <div class="cal-grid-wrap" id="calGrid"></div>
+          <div class="cal-legend">
+            <div class="leg-item"><div class="leg-dot" style="background:#66bb6a"></div>Disponible</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#e57373"></div>Últimos lugares</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#444"></div>Completo / Cerrado</div>
+          </div>
+          <div class="cal-form" id="calForm">
+            <div class="cal-date-label" id="calDateLabel">Seleccioná una fecha ↑</div>
+            <div class="form-row">
+              <div class="fg"><label>Nombre</label><input type="text" id="bName" placeholder="Tu nombre"></div>
+              <div class="fg"><label>WhatsApp / Instagram</label><input type="text" id="bContact" placeholder="+54 o @usuario"></div>
+            </div>
+            <div class="form-row">
+              <div class="fg"><label>Personas</label>
+                <select id="bPersons"><option>1 persona</option><option selected>2 personas</option><option>3 personas</option><option>4 personas</option><option>5+ personas</option></select>
+              </div>
+              <div class="fg"><label>Horario</label>
+                <select id="bTime"><option>19:00</option><option>19:30</option><option>20:00</option><option selected>20:30</option><option>21:00</option></select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="fg form-full"><label>Nota (opcional)</label><textarea id="bNote" placeholder="Alergias, ocasión especial…"></textarea></div>
+            </div>
+            <button class="btn-book" id="bookBtn" onclick="doBook()">Confirmar reserva →</button>
+          </div>
+          <div class="booking-success" id="bookOk">
+            <div class="ck">✅</div>
+            <h3>¡Reserva recibida!</h3>
+            <p>Te contactamos a la brevedad para confirmar tu lugar.<br>¡Nos vemos pronto en Benny!</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ─── PROCESO ─── -->
-<section class="proceso">
+<!-- GALERIA -->
+<section class="gallery-sec" id="galeria">
   <div class="container">
-    <div class="reveal" style="text-align:center;margin-bottom:20px;">
-      <span class="section-eyebrow">El proceso</span>
-      <h2 class="section-title">Así hacemos<br><em>cada pizza</em></h2>
-      <div class="section-divider" style="margin:0 auto;"></div>
+    <div class="rv">
+      <span class="eyebrow">Galería</span>
+      <h2 class="sec-title">Del fuego<br><em>a tu mesa</em></h2>
+      <div class="divider"></div>
     </div>
-    <div class="proceso-grid">
-      <div class="proceso-step reveal stagger-1" data-num="01">
-        <div class="proceso-icon">🌾</div>
-        <h3>La masa</h3>
-        <p>Harina seleccionada, fermentación larga de 48 horas. Sin apuros. El tiempo hace el trabajo.</p>
-      </div>
-      <div class="proceso-step reveal stagger-2" data-num="02">
-        <div class="proceso-icon">🍅</div>
-        <h3>Los ingredientes</h3>
-        <p>Tomates San Marzano, muzzarella fresca, ingredientes de primera categoría. Sin compromiso.</p>
-      </div>
-      <div class="proceso-step reveal stagger-3" data-num="03">
-        <div class="proceso-icon">👐</div>
-        <h3>El estirado</h3>
-        <p>A mano, con técnica napolitana. El borde alto (cornicione) es la firma de una pizza auténtica.</p>
-      </div>
-      <div class="proceso-step reveal stagger-4" data-num="04">
-        <div class="proceso-icon">🔥</div>
-        <h3>El horno</h3>
-        <p>Leña, 450°C, 90 segundos. El calor del horno de piedra da ese sabor que no se puede imitar.</p>
-      </div>
-    </div>
+  </div>
+  <div class="gal-strip">
+    <div class="gal-item rv d1"><img src="assets/images/photo-trecolori.jpg" alt="Tre colori" onerror="this.style.background='#1a0800'"><div class="gal-label">Tre Colori</div></div>
+    <div class="gal-item rv d2"><img src="assets/images/photo-horno1.jpg" alt="Horno leña" onerror="this.style.background='#1a0800'"><div class="gal-label">Al rojo vivo</div></div>
+    <div class="gal-item rv d3"><img src="assets/images/photo-horno2.jpg" alt="Pizza en horno" onerror="this.style.background='#1a0800'"><div class="gal-label">Horno de leña</div></div>
+    <div class="gal-item rv d4"><img src="assets/images/photo-pepperoni-box.jpg" alt="Pepperoni" onerror="this.style.background='#1a0800'"><div class="gal-label">Pepperoni</div></div>
+    <div class="gal-item rv d5"><img src="assets/images/photo-margherita.jpg" alt="Margherita" onerror="this.style.background='#1a0800'"><div class="gal-label">Margherita</div></div>
+    <div class="gal-item rv d6"><img src="assets/images/photo-aug2024.jpg" alt="Horno 2024" onerror="this.style.background='#1a0800'"><div class="gal-label">Fuego real</div></div>
+    <div class="gal-item rv d7"><img src="assets/images/photo-pistacchiosa.jpg" alt="Pistacchiosa" onerror="this.style.background='#1a0800'"><div class="gal-label">Pistacchiosa</div></div>
+    <div class="gal-item rv d8"><img src="assets/images/photo-feb2026.jpg" alt="Especial" onerror="this.style.background='#1a0800'"><div class="gal-label">Especial del día</div></div>
   </div>
 </section>
 
-<!-- ─── CONTACT ─── -->
-<section class="contact-section" id="contacto">
+<!-- CONTACTO -->
+<section class="contact-sec" id="contacto">
   <div class="container">
     <div class="contact-grid">
-      <div class="contact-info reveal-left">
-        <span class="section-eyebrow">Dónde estamos</span>
-        <h2 class="section-title">Vení a<br><em>buscarnos</em></h2>
-        <div class="section-divider"></div>
-        <p>Encontranos en Cañuelas, Buenos Aires. Pedimos por pedido — escribinos para coordinar tu pizza.</p>
-
-        <div class="contact-item">
-          <div class="contact-item-icon">📍</div>
-          <div class="contact-item-text">
-            <span>Ubicación</span>
-            <p>Cañuelas, Buenos Aires, Argentina</p>
-          </div>
-        </div>
-
-        <div class="contact-item">
-          <div class="contact-item-icon">📱</div>
-          <div class="contact-item-text">
-            <span>Instagram</span>
-            <p><a href="https://www.instagram.com/benny_pizza" target="_blank" style="color:var(--gold);text-decoration:none;">@benny_pizza</a></p>
-          </div>
-        </div>
-
-        <div class="contact-item">
-          <div class="contact-item-icon">🗺️</div>
-          <div class="contact-item-text">
-            <span>Google Maps</span>
-            <p><a href="https://maps.app.goo.gl/PgzZLP3Mks7gBBnC7" target="_blank" style="color:var(--gold);text-decoration:none;">Ver ubicación exacta →</a></p>
-          </div>
-        </div>
-
-        <div class="social-links">
-          <a href="https://www.instagram.com/benny_pizza" target="_blank" class="social-link" title="Instagram">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      <div class="rv-l">
+        <span class="eyebrow">Dónde estamos</span>
+        <h2 class="sec-title">Vení a<br><em>buscarnos</em></h2>
+        <div class="divider"></div>
+        <p>Un lugar chico en Cañuelas. Hacemos pizza con amor y nos llenamos rápido. Te esperamos.</p>
+        <div class="ci-item"><div class="ci-icon">📍</div><div class="ci-text"><span>Ubicación</span><p>Cañuelas, Buenos Aires, Argentina</p></div></div>
+        <div class="ci-item"><div class="ci-icon">📱</div><div class="ci-text"><span>Instagram</span><p><a href="https://www.instagram.com/benny_pizza" target="_blank">@benny_pizza</a></p></div></div>
+        <div class="ci-item"><div class="ci-icon">🗺️</div><div class="ci-text"><span>Cómo llegar</span><p><a href="https://maps.app.goo.gl/PgzZLP3Mks7gBBnC7" target="_blank">Ver en Google Maps →</a></p></div></div>
+        <div class="socials">
+          <a href="https://www.instagram.com/benny_pizza" target="_blank" class="soc-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           </a>
-          <a href="https://maps.app.goo.gl/PgzZLP3Mks7gBBnC7" target="_blank" class="social-link" title="Google Maps">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          <a href="https://maps.app.goo.gl/PgzZLP3Mks7gBBnC7" target="_blank" class="soc-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
           </a>
         </div>
-
-        <a href="https://maps.app.goo.gl/PgzZLP3Mks7gBBnC7" target="_blank" class="map-btn">
-          🗺️ Abrir en Google Maps
-        </a>
+        <a href="https://maps.app.goo.gl/PgzZLP3Mks7gBBnC7" target="_blank" class="map-link">🗺️ Abrir en Google Maps</a>
       </div>
-
-      <div class="contact-map reveal-right">
-        <iframe
-          src="https://maps.google.com/maps?q=Cañuelas,+Buenos+Aires,+Argentina&t=&z=14&ie=UTF8&iwloc=&output=embed"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="Benny Pizza - Cañuelas"
-        ></iframe>
-        <div style="margin-top:16px;text-align:center;">
-          <p style="font-size:12px;color:rgba(245,240,232,0.4);">Haz click en el mapa para ver la ubicación exacta en Google Maps</p>
-        </div>
+      <div class="map-frame rv-r">
+        <iframe src="https://maps.google.com/maps?q=Ca%C3%B1uelas%2C+Buenos+Aires%2C+Argentina&t=&z=14&ie=UTF8&iwloc=&output=embed" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Benny Pizza"></iframe>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── FOOTER ─── -->
+<!-- FOOTER -->
 <footer>
-  <div class="footer-inner">
+  <div class="foot-inner">
     <div>
-      <div class="footer-logo">Benny <span>·</span> Fatto In Casa</div>
-      <div class="footer-tagline">Pizza Napolitana · Cañuelas · Buenos Aires</div>
+      <div class="foot-brand">Benny <span>·</span> Fatto In Casa</div>
+      <div class="foot-sub">Pizza Napolitana · Cañuelas · Buenos Aires</div>
+      <div class="foot-flag" style="margin-top:10px">
+        <div class="flag-b" style="background:#1a6b3a"></div>
+        <div class="flag-b" style="background:#f2ece0"></div>
+        <div class="flag-b" style="background:#c0392b"></div>
+      </div>
     </div>
-    <div class="footer-copy">
+    <div class="foot-copy">
       <p>© 2026 Benny Fatto In Casa</p>
-      <p style="margin-top:6px;">Hecho con 🔥 y masa madre</p>
+      <p style="margin-top:5px;font-size:10px">Hecho con 🔥 masa madre y amor</p>
     </div>
   </div>
 </footer>
 
 <script>
-  // NAV scroll
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 50);
-  });
+// NAV
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 50));
+document.getElementById('burger').onclick = () => document.getElementById('mob').classList.toggle('open');
+function cm() { document.getElementById('mob').classList.remove('open'); }
 
-  // Burger
-  const burger = document.getElementById('burger');
-  const mobileMenu = document.getElementById('mobileMenu');
-  burger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
-  function closeMobile() { mobileMenu.classList.remove('open'); }
+// REVEALS
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); }), { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el => obs.observe(el));
 
-  // Intersection Observer — reveals
-  const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-  reveals.forEach(el => observer.observe(el));
-
-  // Counter animation
-  function animateCounter(el) {
-    const target = parseInt(el.dataset.target);
-    const duration = 1800;
-    const step = target / (duration / 16);
-    let current = 0;
-    const timer = setInterval(() => {
-      current += step;
-      if (current >= target) {
-        el.textContent = target;
-        clearInterval(timer);
-      } else {
-        el.textContent = Math.floor(current);
-      }
-    }, 16);
-  }
-
-  const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
-        entry.target.classList.add('counted');
-        animateCounter(entry.target);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
-
-  // Parallax on hero fire circle
-  const fireCircle = document.querySelector('.hero-fire-circle');
-  window.addEventListener('scroll', () => {
-    if (fireCircle) {
-      const scrolled = window.scrollY;
-      fireCircle.style.transform = `translateY(calc(-50% + ${scrolled * 0.3}px))`;
+// COUNTERS
+const cObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !e.target.dataset.done) {
+      e.target.dataset.done = 1;
+      const target = +e.target.dataset.target;
+      let cur = 0; const step = target / 60;
+      const t = setInterval(() => { cur = Math.min(cur+step, target); e.target.textContent = Math.floor(cur); if(cur>=target) clearInterval(t); }, 16);
     }
-  }, { passive: true });
-</script>
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.counter').forEach(el => cObs.observe(el));
 
+// CALENDAR
+const MONTHS = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const avail = {}; // cache status
+function getStatus(y,m,d) {
+  const k = `${y}-${m}-${d}`;
+  if (!avail[k]) {
+    // Mondays closed
+    const dow = new Date(y,m,d).getDay();
+    if (dow === 1) { avail[k] = 'closed'; return 'closed'; }
+    const r = Math.random();
+    avail[k] = r < 0.18 ? 'full' : r < 0.42 ? 'few' : 'ok';
+  }
+  return avail[k];
+}
+
+let cy = 2026, cm2 = 4; // May 2026
+let sel = null;
+
+function renderCal() {
+  const grid = document.getElementById('calGrid');
+  document.getElementById('calTitle').textContent = `${MONTHS[cm2]} ${cy}`;
+  grid.innerHTML = '';
+  const today = new Date();
+  const firstDow = new Date(cy, cm2, 1).getDay();
+  const days = new Date(cy, cm2+1, 0).getDate();
+
+  for (let i=0;i<firstDow;i++) { const c=document.createElement('div'); c.className='cal-cell c-empty'; grid.appendChild(c); }
+  for (let d=1;d<=days;d++) {
+    const c = document.createElement('div');
+    const dt = new Date(cy,cm2,d);
+    const isToday = dt.toDateString() === today.toDateString();
+    const isPast = dt < today && !isToday;
+    const status = (!isPast) ? getStatus(cy,cm2,d) : 'past';
+    let cls = 'cal-cell';
+    if (isPast || status === 'closed') cls += ' c-past';
+    else cls += ` c-${status}`;
+    if (isToday) cls += ' c-today';
+    if (sel && sel.d===d && sel.m===cm2 && sel.y===cy) cls += ' c-selected';
+    c.className = cls; c.textContent = d;
+    if (!isPast && status !== 'closed' && status !== 'full') {
+      c.addEventListener('click', () => {
+        sel = {d, m:cm2, y:cy};
+        const lbl = document.getElementById('calDateLabel');
+        const st = getStatus(cy,cm2,d);
+        lbl.textContent = `📅 ${d} de ${MONTHS[cm2]} ${cy}${st==='few'?' — últimos lugares':''}`;
+        lbl.style.color = 'var(--gold)';
+        document.getElementById('bookBtn').disabled = false;
+        document.getElementById('bookBtn').textContent = 'Confirmar reserva →';
+        renderCal();
+      });
+    } else if (status === 'full') {
+      c.addEventListener('click', () => {
+        document.getElementById('calDateLabel').textContent = '❌ Esta fecha está completa. Elegí otra.';
+        document.getElementById('calDateLabel').style.color = '#e57373';
+      });
+    }
+    grid.appendChild(c);
+  }
+}
+
+document.getElementById('prevM').onclick = () => { cm2--; if(cm2<0){cm2=11;cy--;} renderCal(); };
+document.getElementById('nextM').onclick = () => { cm2++; if(cm2>11){cm2=0;cy++;} renderCal(); };
+renderCal();
+
+// BOOKING
+function doBook() {
+  const name = document.getElementById('bName').value.trim();
+  const contact = document.getElementById('bContact').value.trim();
+  if (!sel) { document.getElementById('calDateLabel').textContent = '⚠️ Primero seleccioná una fecha'; document.getElementById('calDateLabel').style.color='#e57373'; return; }
+  if (!name || !contact) { alert('Por favor completá nombre y contacto'); return; }
+  const persons = document.getElementById('bPersons').value;
+  const time = document.getElementById('bTime').value;
+  const note = document.getElementById('bNote').value;
+  const msg = encodeURIComponent(`¡Hola Benny! Quiero reservar:\n📅 ${sel.d} de ${MONTHS[sel.m]} ${sel.y}\n🕐 ${time}\n👥 ${persons}\n📝 ${note||'Sin notas'}\n— ${name} (${contact})`);
+  // Reemplazá +5491100000000 con tu número real de WhatsApp
+  window.open(`https://wa.me/+5491100000000?text=${msg}`, '_blank');
+  document.getElementById('calForm').style.display = 'none';
+  document.getElementById('bookOk').style.display = 'block';
+}
+</script>
 </body>
 </html>
