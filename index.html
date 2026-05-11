@@ -26,12 +26,25 @@ body { background: var(--black); color: var(--white); font-family: 'Outfit', san
   width: auto;
   object-fit: contain;
   display: block;
-  /* El logo tiene fondo negro — le sacamos el fondo con mix-blend-mode */
-  mix-blend-mode: lighten;
-  transition: transform 0.3s, filter 0.3s;
-  filter: drop-shadow(0 0 8px rgba(200,169,110,0.35));
+  /* Elimina el fondo negro (screen es más efectivo que lighten) */
+  mix-blend-mode: screen;
+  /* Animación de giro continuo sobre su propio eje central */
+  animation: girar 4s linear infinite;
+  /* Sombra exterior para resaltar las letras */
+  filter: drop-shadow(0 0 8px rgba(200, 169, 110, 0.35));
+  /* Asegura que el pivote de rotación sea el centro exacto */
+  transform-origin: center center;
 }
-.nav-logo-img:hover { transform: scale(1.05); }
+
+/* Fotogramas de la animación */
+@keyframes girar {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 .hero-logo-img {
   width: 100%;
